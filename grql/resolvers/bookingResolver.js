@@ -15,7 +15,8 @@ const {
 //=========================================================================================
 
 module.exports = {
-  bookings: async () => {
+  bookings: async (args, req) => {
+    //if (!req.isAuth) throw new Error("Unauthenticated!");
     try {
       const bookings = await Booking.find();
       return bookings.map(booking => bookingQL(booking));
@@ -23,27 +24,30 @@ module.exports = {
       throw error;
     }
   },
-  bookEvent: async args => {
-    const eventID = args.eventID;
+  bookEvent: async (args, req) => {
+    if (!req.isAuth) throw new Error("Unauthenticated!");
+    const eventId = args.eventId;
     try {
-      const event = await Event.findOne({ _id: eventID });
+      const event = await Event.findOne({ _id: eventId });
+      if (!event) throw new Error("Event not found!");
       const booking = await new Booking({
         event: event,
-        user: "5c28b6ef5c6f272388050877"
+        user: req.userId
       }).save();
 
-      return getBooking(booking._id);
+      return bookingQL(booking);
     } catch (error) {
       throw error;
     }
   },
 
-  cancelBooking: async args => {
-    const bookingID = args.bookingID;
+  cancelBooking: async (args, req) => {
+    if (!req.isAuth) throw new Error("Unauthenticated!");
+    const bookingId = args.bookingId;
     try {
       const booking = await Booking.findById(bookingID).populate("event");
       const event = eventQL(booking.event);
-      await Booking.deleteOne({ _id: bookingID });
+      await Booking.deleteOne({ _id: bookingId });
       return event;
     } catch (error) {
       throw error;

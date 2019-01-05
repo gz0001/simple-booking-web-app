@@ -11,7 +11,8 @@ const { getUser, getEvent, getEvents, userQL } = require("grql/utils");
 //=========================================================================================
 
 module.exports = {
-  users: async () => {
+  users: async (args, req) => {
+    if (!req.isAuth) throw new Error("Unauthenticated!");
     try {
       const users = await User.find();
       return users.map(user => userQL(user));
@@ -49,10 +50,14 @@ module.exports = {
       if (!isEqual) {
         throw new Error("Password is not correct!");
       } else {
-        const token = await jwt.sign({userId: user.id, email: user._doc.email}, 'truong92', {
-          expiresIn: '1h'
-        })
-        return {userId: user.id, token, tokenExpiration: 1}
+        const token = await jwt.sign(
+          { userId: user.id, email: user._doc.email },
+          "truong92",
+          {
+            expiresIn: "1h"
+          }
+        );
+        return { userId: user.id, token, tokenExpiration: 1 };
       }
     } catch (error) {
       throw error;

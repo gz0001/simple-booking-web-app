@@ -9,10 +9,14 @@ const schema = require("grql/schema");
 // Resolvers:
 const rootResolvers = require("grql/resolvers");
 
+// Middlewares:
+const isAuth = require("middleware/is-auth");
+
 // Main:
 const app = express();
 
 app.use(bodyParser.json());
+app.use(isAuth);
 
 app.get("/", (req, res, next) => {
   res.send("Hello from express");
