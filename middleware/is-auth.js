@@ -26,7 +26,7 @@ module.exports = async (req, res, next) => {
   }
 
   req.isAuth = true;
-  req.userId = decodedToken.userid;
+  req.userId = decodedToken.userId;
   req.userEmail = decodedToken.email;
   return next();
 };
