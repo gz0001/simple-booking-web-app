@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+const { getUser, getEvents, getBooking } = require("grql/utils");
+
+//=========================================================================================
 
 const eventSchema = new Schema({
   title: {
@@ -29,6 +32,15 @@ eventSchema.virtual("obj").get(function() {
     ...this._doc,
     _id: this.id,
     date: new Date(this._doc.date).toString()
+  };
+});
+
+eventSchema.virtual("qlObj").get(function() {
+  return {
+    ...this._doc,
+    _id: this.id,
+    date: new Date(this._doc.date).toString(),
+    creator: getUser(this._doc.creator)
   };
 });
 
