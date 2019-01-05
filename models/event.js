@@ -35,13 +35,4 @@ eventSchema.virtual("obj").get(function() {
   };
 });
 
-eventSchema.virtual("qlObj").get(function() {
-  return {
-    ...this._doc,
-    _id: this.id,
-    date: new Date(this._doc.date).toString(),
-    creator: getUser(this._doc.creator)
-  };
-});
-
 module.exports = mongoose.model("Event", eventSchema);
