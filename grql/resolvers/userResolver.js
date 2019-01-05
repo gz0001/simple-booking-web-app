@@ -4,7 +4,7 @@ const Event = require("models/event");
 const Booking = require("models/booking");
 
 // Utils:
-const { getUser, getEvent, getEvents } = require("grql/utils");
+const { getUser, getEvent, getEvents, userQL } = require("grql/utils");
 
 //=========================================================================================
 
@@ -12,10 +12,7 @@ module.exports = {
   users: async () => {
     try {
       const users = await User.find();
-      return users.map(user => ({
-        ...user.obj,
-        createdEvents: getEvents(user._doc.createdEvents)
-      }));
+      return users.map(user => userQL(user));
     } catch (error) {
       console.log(error);
       throw error;

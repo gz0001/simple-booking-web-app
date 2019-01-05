@@ -70,10 +70,40 @@ const getBookings = async bookingIds => {
   }
 };
 
+// Transform:
+
+const userQL = user => {
+  if (!user) return null;
+  return {
+    ...user.obj,
+    createdEvents: getEvents(user._doc.createdEvents)
+  };
+};
+
+const eventQL = event => {
+  if (!event) return null;
+  return {
+    ...event.obj,
+    creator: getUser(event._doc.creator)
+  };
+};
+
+const bookingQL = booking => {
+  if (!booking) return null;
+  return {
+    ...booking.obj,
+    user: getUser(booking.obj.user),
+    event: getEvent(booking.obj.event)
+  };
+};
+
 module.exports = {
   getBooking,
   getBookings,
   getUser,
   getEvent,
-  getEvents
+  getEvents,
+  userQL,
+  eventQL,
+  bookingQL
 };

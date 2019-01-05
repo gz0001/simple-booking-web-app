@@ -1,5 +1,3 @@
-const bcrypt = require("bcryptjs");
-
 // Resolvers:
 const bookingResolver = require("./bookingResolver");
 const userResolver = require("./userResolver");

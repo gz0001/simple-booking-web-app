@@ -4,7 +4,7 @@ const Event = require("models/event");
 const Booking = require("models/booking");
 
 // Utils:
-const { getUser, getEvent, getEvents } = require("grql/utils");
+const { getUser, getEvent, getEvents, eventQL } = require("grql/utils");
 
 //=========================================================================================
 
@@ -12,10 +12,7 @@ module.exports = {
   events: async () => {
     try {
       const events = await Event.find();
-      return events.map(ev => ({
-        ...ev.obj,
-        creator: getUser(ev._doc.creator)
-      }));
+      return events.map(event => eventQL(event));
     } catch (error) {
       console.log(error);
       throw error;
@@ -40,10 +37,7 @@ module.exports = {
 
       await creator.save();
 
-      return {
-        ...ev.obj,
-        creator: getUser(ev._doc.creator)
-      };
+      return eventQL(ev);
     } catch (error) {
       console.log(error);
       throw error;
