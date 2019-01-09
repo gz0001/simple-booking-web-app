@@ -45,7 +45,7 @@ module.exports = {
     if (!req.isAuth) throw new Error("Unauthenticated!");
     const bookingId = args.bookingId;
     try {
-      const booking = await Booking.findById(bookingID).populate("event");
+      const booking = await Booking.findById(bookingId).populate("event");
       const event = eventQL(booking.event);
       await Booking.deleteOne({ _id: bookingId });
       return event;

@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const graphqlHttp = require("express-graphql");
 const mongoose = require("mongoose");
 
@@ -16,6 +17,7 @@ const isAuth = require("middleware/is-auth");
 const app = express();
 
 app.use(bodyParser.json());
+app.use(cors());
 app.use(isAuth);
 
 app.get("/", (req, res, next) => {
