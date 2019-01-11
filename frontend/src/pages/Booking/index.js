@@ -1,42 +1,40 @@
 import React, { Component } from "react";
-import { QueryRenderer } from "react-relay";
-import graphql from "babel-plugin-relay/macro";
-
-import environment from "../../evironment";
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
 
 // Styles:
 import "./styles.scss";
 
-class Booking extends Component {
-  componentDidMount() {
-    console.log("token:", localStorage.getItem("USER_TOKEN"));
+const bookings = gql`
+  {
+    bookings {
+      event {
+        title
+        description
+      }
+      user {
+        email
+      }
+    }
   }
+`;
+
+class Booking extends Component {
   render() {
     return (
-      <QueryRenderer
-        environment={environment}
-        query={graphql`
-          query BookingsQuery {
-            users {
-              email
-              password
-            }
-          }
-        `}
-        variables={{}}
-        render={({ error, props }) => {
-          if (error) {
-            console.log(error);
-
-            return <div>Error!</div>;
-          }
-          if (!props) {
-            return <div>Loading...</div>;
-          }
-          console.log("got res: ", props);
-          return <div>Bookings</div>;
+      <Query query={bookings}>
+        {({ loading, error, data }) => {
+          if (loading) return <p>Loading...</p>;
+          if (error) return <p>Error :(</p>;
+          return data.bookings.map(({ event, user }) => (
+            <div key={user.email}>
+              {user.email}
+              <p>Event: {event.title}</p>
+              <p>Desciption: {event.description}</p>
+            </div>
+          ));
         }}
-      />
+      </Query>
     );
   }
 }

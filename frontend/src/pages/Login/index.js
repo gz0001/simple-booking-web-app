@@ -1,10 +1,4 @@
 import React, { Component } from "react";
-//import { QueryRenderer } from "react-relay";
-import graphql from "babel-plugin-relay/macro";
-import environment from "../../evironment";
-
-// Mutation:
-import LoginMutation from "../../mutations/LoginMutation";
 
 // Styles:
 import "./styles.scss";
@@ -31,10 +25,6 @@ class Login extends Component {
     e.preventDefault();
     const { email, password } = this.state;
     try {
-      const result = await LoginMutation.commit(environment, email, password);
-      localStorage.setItem("USER_ID", result.login.userId);
-      localStorage.setItem("USER_TOKEN", result.login.token);
-      this.props.history.push("/booking");
     } catch (error) {
       this.setState({ error: true });
     }
