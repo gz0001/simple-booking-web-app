@@ -19,18 +19,35 @@ const bookings = gql`
   }
 `;
 
+const user = gql`
+  {
+    users {
+      email
+      password
+    }
+  }
+`;
+
 class Booking extends Component {
+  componentDidMount() {
+    console.log(user);
+  }
   render() {
     return (
-      <Query query={bookings}>
-        {({ loading, error, data }) => {
+      <Query query={bookings} notifyOnNetworkStatusChange>
+        {({ loading, error, data, refetch, networkStatus }) => {
+          if (networkStatus === 4) return "Refetching!";
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
+          console.log("got data: ", data);
           return data.bookings.map(({ event, user }) => (
             <div key={user.email}>
-              {user.email}
-              <p>Event: {event.title}</p>
-              <p>Desciption: {event.description}</p>
+              <span>{user.email}</span>
+              <br />
+              <span>Event: {event.title}</span>
+              <br />
+              <span>Desciption: {event.description}</span>
+              <button onClick={() => refetch()}>Refetch!</button>
             </div>
           ));
         }}
