@@ -39,7 +39,10 @@ app.use(
     await mongoose.connect(
       "mongodb://localhost:27017/grql",
       {
-        useNewUrlParser: true
+        useNewUrlParser: true,
+        socketTimeoutMS: 0,
+        keepAlive: true,
+        reconnectTries: 30
       }
     );
     console.log("Database connected");

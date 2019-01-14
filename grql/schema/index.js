@@ -15,12 +15,16 @@ module.exports = buildSchema(`
     _id: ID!
     email: String!
     password: String
+    name: String!
+    age: Int!
     createdEvents: [Event!]
   }
 
   input UserInput {
     email: String!
     password: String!
+    name: String!
+    age: Int!
   }
 
 
@@ -46,6 +50,10 @@ module.exports = buildSchema(`
     tokenExpiration: Int!
   }
 
+  type Verify {
+    isAuth: Boolean!
+  }
+
   type RootQuery {
     events: [Event!]!
     users: [User!]
@@ -54,10 +62,11 @@ module.exports = buildSchema(`
 
   type RootMutation {
     createEvent(eventInput: EventInput): Event
-    createUser(userInput: UserInput): User
+    createUser(userInput: UserInput): AuthData
     bookEvent(eventId: ID): Booking!
     cancelBooking(bookingId: ID): Event!
     login(email: String!, password: String!): AuthData!
+    verifyToken: Verify!
   }
 
   schema {

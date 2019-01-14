@@ -23,7 +23,7 @@ module.exports = {
   },
 
   createUser: async args => {
-    const { email, password } = args.userInput;
+    const { email, password, name, age } = args.userInput;
     try {
       const checkUser = await User.findOne({ email });
       if (checkUser) throw new Error("User already exists");
@@ -31,10 +31,19 @@ module.exports = {
       const hashedPassword = await bcrypt.hash(password, 12);
       const user = await new User({
         email,
-        password: hashedPassword
+        password: hashedPassword,
+        name,
+        age
       }).save();
 
-      return user.obj;
+      const token = await jwt.sign(
+        { userId: user.id, email: user._doc.email },
+        "truong92",
+        {
+          expiresIn: "1h"
+        }
+      );
+      return { userId: user.id, token, tokenExpiration: 1 };
     } catch (error) {
       console.log(error);
       throw error;
@@ -62,5 +71,10 @@ module.exports = {
     } catch (error) {
       throw error;
     }
+  },
+  verifyToken: async (args, req) => {
+    return {
+      isAuth: req.isAuth
+    };
   }
 };

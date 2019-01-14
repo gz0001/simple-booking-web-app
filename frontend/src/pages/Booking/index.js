@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
+import { Link } from "react-router-dom";
 import gql from "graphql-tag";
 
 // Styles:
@@ -28,28 +29,31 @@ const user = gql`
   }
 `;
 
-class Booking extends Component {
-  componentDidMount() {
-    console.log(user);
+const query = gql`
+  query getAuth {
+    auth @client {
+      userId
+      token
+      isAuth
+    }
   }
+`;
+
+class Booking extends Component {
   render() {
     return (
-      <Query query={bookings} notifyOnNetworkStatusChange>
-        {({ loading, error, data, refetch, networkStatus }) => {
+      <Query query={user} notifyOnNetworkStatusChange>
+        {({ loading, error, data, refetch, networkStatus, client }) => {
+          //console.log("booking: ", client.readQuery({ query }));
           if (networkStatus === 4) return "Refetching!";
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
           console.log("got data: ", data);
-          return data.bookings.map(({ event, user }) => (
-            <div key={user.email}>
-              <span>{user.email}</span>
-              <br />
-              <span>Event: {event.title}</span>
-              <br />
-              <span>Desciption: {event.description}</span>
-              <button onClick={() => refetch()}>Refetch!</button>
+          return (
+            <div>
+              got data <Link to="/event">go to event</Link>
             </div>
-          ));
+          );
         }}
       </Query>
     );
