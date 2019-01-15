@@ -37,7 +37,7 @@ app.use(
 (async () => {
   try {
     await mongoose.connect(
-      "mongodb://localhost:27017/grql",
+      "mongodb+srv://truong:truong92@mycluster-3i9di.mongodb.net/grql?authSource=admin&retryWrites=true",
       {
         useNewUrlParser: true,
         socketTimeoutMS: 0,

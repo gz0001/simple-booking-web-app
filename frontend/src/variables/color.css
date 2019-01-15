@@ -1,0 +1,21 @@
+:root {
+  /** Main colors: */
+  --first: #00ccff;
+  --first-dark: #09add6;
+  --second: #ffcc00;
+  --second-dark: #f1c104;
+  --third: #9900ff;
+  --third-dark: #8005d2;
+  --fourth: #bae40f;
+  --fourth-dark: #add40f;
+  --error: #c0392b;
+  --error-dark: #9a2e23;
+  --grey: #eff0f4;
+  --grey-dark: #adadad;
+  --grey-darker: rgb(241, 241, 241);
+  --success: #2ecc71;
+  --success-dark: #27ae60;
+  --text: #333;
+  --text-dark: #999;
+}
+

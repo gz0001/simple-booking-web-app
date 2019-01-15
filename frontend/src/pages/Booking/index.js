@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import gql from "graphql-tag";
 
 // Styles:
-import "./styles.scss";
+//import "./style.css";
 
 const bookings = gql`
   {

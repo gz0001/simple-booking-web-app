@@ -1,24 +1,25 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
-import ApolloClient from "apollo-boost";
-import { ApolloProvider, Query } from "react-apollo";
-import gql from "graphql-tag";
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
+import ApolloClient from 'apollo-boost'
+import { ApolloProvider, Query } from 'react-apollo'
+import gql from 'graphql-tag'
 
-import "./index.scss";
-import App from "./App";
+import '../node_modules/tt-react-ui-2/build/index.css'
+import './style.css'
+import App from './App'
 
 // Client:
 const client = new ApolloClient({
-  uri: "http://localhost:1234/graphql/",
+  uri: 'http://localhost:1234/graphql/',
   request: async operation => {
-    const token = localStorage.getItem("token");
-    console.log("token: ", token);
+    const token = localStorage.getItem('token')
+    console.log('token: ', token)
     operation.setContext({
       headers: {
-        authorization: token ? `Bearer ${token}` : ""
+        authorization: token ? `Bearer ${token}` : ''
       }
-    });
+    })
   },
   clientState: {
     defaults: {
@@ -26,12 +27,12 @@ const client = new ApolloClient({
         userId: null,
         token: null,
         isAuth: false,
-        __typename: "AuthStatus"
+        __typename: 'AuthStatus'
       }
     }
   }
-});
-client.initQueryManager();
+})
+client.initQueryManager()
 
 // Query AuthStatus:
 const authStatus = gql`
@@ -42,17 +43,17 @@ const authStatus = gql`
       isAuth
     }
   }
-`;
+`
 
 ReactDOM.render(
   <ApolloProvider client={client}>
     <BrowserRouter>
       <Query query={authStatus}>
         {({ data, client }) => {
-          return <App data={data} client={client} />;
+          return <App data={data} client={client} />
         }}
       </Query>
     </BrowserRouter>
   </ApolloProvider>,
-  document.getElementById("root")
-);
+  document.getElementById('root')
+)

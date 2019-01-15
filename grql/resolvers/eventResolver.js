@@ -27,11 +27,11 @@ module.exports = {
         description,
         price: +price,
         date: new Date(date),
-        creator: "5c28b6ef5c6f272388050877"
+        creator: req.userId
       });
       const ev = await event.save();
 
-      const creator = await User.findById("5c28b6ef5c6f272388050877");
+      const creator = await User.findById(req.userId);
 
       if (!creator) throw new Error("user not found.");
       creator.createdEvents.push(event);
