@@ -48,11 +48,7 @@ const authStatus = gql`
 ReactDOM.render(
   <ApolloProvider client={client}>
     <BrowserRouter>
-      <Query query={authStatus}>
-        {({ data, client }) => {
-          return <App data={data} client={client} />
-        }}
-      </Query>
+      <Query query={authStatus}>{({ data, client }) => <App data={data} client={client} />}</Query>
     </BrowserRouter>
   </ApolloProvider>,
   document.getElementById('root')

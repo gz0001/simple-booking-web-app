@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
-import { Textfield } from 'tt-react-ui-2'
+import { Textfield, Button, Box, Headline } from 'tt-react-ui-2'
 // Styles:
 //import "./style.scss";
 
@@ -70,8 +70,7 @@ class Login extends Component {
     }
   }
 
-  toogleMode = e => {
-    e.preventDefault()
+  toogleMode = () => {
     this.setState(({ isLogin }) => ({
       email: '',
       password: '',
@@ -88,10 +87,10 @@ class Login extends Component {
       <Mutation mutation={isLogin ? loginQL : createQL} variables={variables}>
         {(mutate, { loading, error, client }) => {
           return (
-            <div className="Login page d-flex justify-content-center align-items-center flex-column">
-              <h3 className="text-center text-primary">
+            <Box className="Login page" justify="center" items="center" flex="column" w="auto">
+              <Headline center text="first">
                 {isLogin ? 'Login here:' : 'Create an account:'}
-              </h3>
+              </Headline>
               <form onSubmit={this.handleSubmit(mutate, client)}>
                 <div className="form-group">
                   <Textfield
@@ -127,18 +126,18 @@ class Login extends Component {
                   )}
                 </div>
                 <div className="d-flex justify-content-between">
-                  <button type="submit" className="btn btn-primary d-block mx-auto">
+                  <Button type="first" onClick={this.handleSubmit}>
                     {isLogin ? 'Login' : 'Register'}
-                  </button>
-                  <button type="button" className="btn btn-link" onClick={this.toogleMode}>
+                  </Button>
+                  <Button inline onClick={this.toogleMode}>
                     {isLogin ? 'Dont have an account?' : 'Back to login'}
-                  </button>
+                  </Button>
                 </div>
 
                 {loading && <p className="text-info text-center">loading...</p>}
                 {error && <p className="text-danger text-center">Please try again!</p>}
               </form>
-            </div>
+            </Box>
           )
         }}
       </Mutation>

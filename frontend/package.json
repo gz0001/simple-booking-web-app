@@ -16,7 +16,7 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
     "tailwindcss": "^0.7.3",
-    "tt-react-ui-2": "0.0.8",
+    "tt-react-ui-2": "0.0.11",
     "typescript": "^3.2.2"
   },
   "scripts": {
