@@ -1,9 +1,9 @@
 :root {
   /** Main colors: */
-  --first: #00ccff;
-  --first-dark: #09add6;
-  --second: #ffcc00;
-  --second-dark: #f1c104;
+  --first: #464092;
+  --first-dark: #33314a;
+  --second: #004283;
+  --second-dark: #002e5b;
   --third: #9900ff;
   --third-dark: #8005d2;
   --fourth: #bae40f;
@@ -18,4 +18,3 @@
   --text: #333;
   --text-dark: #999;
 }
-

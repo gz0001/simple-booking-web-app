@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const graphqlHttp = require("express-graphql");
 const mongoose = require("mongoose");
+const { format } = require("date-fns");
 
 // Schema:
 const schema = require("grql/schema");
@@ -21,7 +22,9 @@ app.use(cors());
 app.use(isAuth);
 
 app.get("/", (req, res, next) => {
-  res.send("Hello from express");
+  res.send(
+    `Hello from express and docker: ${format(new Date(), "dd.MM.YYYY")}`
+  );
 });
 
 app.use(
@@ -37,7 +40,8 @@ app.use(
 (async () => {
   try {
     await mongoose.connect(
-      "mongodb+srv://truong:truong92@mycluster-3i9di.mongodb.net/grql?authSource=admin&retryWrites=true",
+      //"mongodb+srv://truong:truong92@mycluster-3i9di.mongodb.net/grql?authSource=admin&retryWrites=true",
+      "mongodb://mongo:27017/grql",
       {
         useNewUrlParser: true,
         socketTimeoutMS: 0,

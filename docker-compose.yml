@@ -1,0 +1,17 @@
+version: '3'
+services:
+  app:
+    container_name: docker-node-mongo
+    restart: always
+    build: .
+    command: nodemon -L app.js --watch
+    ports:
+      - '1234:1234'
+    links:
+      - mongo
+    volumes: ['./:/usr/src/app']  
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - '27017:27017'
