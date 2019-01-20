@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   app:
     container_name: docker-node-mongo
@@ -6,12 +6,26 @@ services:
     build: .
     command: nodemon -L app.js --watch
     ports:
-      - '1234:1234'
+      - "1234:1234"
     links:
       - mongo
-    volumes: ['./:/usr/src/app']  
+    volumes: ["./:/usr/src/app"]
+
   mongo:
     container_name: mongo
     image: mongo
     ports:
-      - '27017:27017'
+      - "27017:27017"
+
+  client:
+    container_name: react
+    restart: always
+    build: ./frontend
+    command: npm start
+    ports:
+      - "3000:3000"
+    links:
+      - app
+    volumes: ["./frontend:/usr/src/app"]
+    environment:
+      - CHOKIDAR_USEPOLLING=true

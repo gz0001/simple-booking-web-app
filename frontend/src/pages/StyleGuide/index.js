@@ -8,21 +8,21 @@ class StyleGuide extends Component {
       <div className="StyleGuide page">
         <Container fluid>
           <Row>
-            <Col>
+            <Col cols="3">
               <Button onClick={() => console.log('click')}>Style here</Button>
             </Col>
-            <Col>
+            <Col cols="3">
               <Button onClick={() => console.log('click')} bg="second">
                 Style here
               </Button>
             </Col>
-            <Col>
+            <Col cols="3">
               <Button onClick={() => console.log('click')} bg="third">
                 Style here
               </Button>
             </Col>
-            <Col>
-              <Button onClick={() => console.log('click')} bg="success">
+            <Col cols="6">
+              <Button onClick={() => console.log('click')} bg="fourth">
                 Style here
               </Button>
             </Col>
