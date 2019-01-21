@@ -12,17 +12,32 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  name: {
+  firstname: {
+    type: String,
+    required: true
+  },
+  lastname: {
     type: String,
     required: true
   },
   age: { type: Number, required: true },
+  city: {
+    type: String,
+    required: true
+  },
   createdEvents: [
     {
       type: Schema.Types.ObjectId,
       ref: "Event"
     }
-  ]
+  ],
+  bookings: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Booking"
+    }
+  ],
+  pic: String
 });
 
 userSchema.virtual("obj").get(function() {

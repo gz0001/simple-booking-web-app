@@ -11,7 +11,8 @@ const getUser = async userId => {
     const user = await User.findById(userId);
     return {
       ...user.obj,
-      createdEvents: getEvents(user._doc.createdEvents)
+      createdEvents: () => getEvents(user._doc.createdEvents),
+      bookings: () => getBookings(user._doc.bookings)
     };
   } catch (error) {
     throw error;
@@ -25,7 +26,8 @@ const getEvent = async eventId => {
     if (!event) return null;
     return {
       ...event.obj,
-      creator: getUser(event._doc.creator)
+      creator: () => getUser(event._doc.creator),
+      bookings: () => getBookings(event._doc.bookings)
     };
   } catch (error) {}
 };
@@ -35,7 +37,8 @@ const getEvents = async eventIds => {
     const events = await Event.find({ _id: { $in: eventIds } });
     return events.map(event => ({
       ...event.obj,
-      creator: getUser(event._doc.creator)
+      creator: () => getUser(event._doc.creator),
+      bookings: () => getBookings(event._doc.bookings)
     }));
   } catch (error) {
     throw error;
@@ -49,8 +52,8 @@ const getBooking = async bookingId => {
     if (!booking) return null;
     return {
       ...booking.obj,
-      event: getEvent(booking.obj.event),
-      user: getUser(booking.obj.user)
+      event: () => getEvent(booking.obj.event),
+      user: () => getUser(booking.obj.user)
     };
   } catch (error) {
     throw error;
@@ -62,8 +65,8 @@ const getBookings = async bookingIds => {
     const bookings = await Booking.find({ _id: { $in: bookingIds } });
     return bookings.map(booking => ({
       ...booking.obj,
-      event: getEvent(booking.obj.event),
-      user: getUser(booking.obj.user)
+      event: () => getEvent(booking.obj.event),
+      user: () => getUser(booking.obj.user)
     }));
   } catch (error) {
     throw error;
@@ -76,7 +79,8 @@ const userQL = user => {
   if (!user) return null;
   return {
     ...user.obj,
-    createdEvents: getEvents(user._doc.createdEvents)
+    createdEvents: () => getEvents(user._doc.createdEvents),
+    bookings: () => getBookings(user._doc.bookings)
   };
 };
 
@@ -84,7 +88,7 @@ const eventQL = event => {
   if (!event) return null;
   return {
     ...event.obj,
-    creator: getUser(event._doc.creator)
+    creator: () => getUser(event._doc.creator)
   };
 };
 
@@ -92,8 +96,8 @@ const bookingQL = booking => {
   if (!booking) return null;
   return {
     ...booking.obj,
-    user: getUser(booking.obj.user),
-    event: getEvent(booking.obj.event)
+    user: () => getUser(booking.obj.user),
+    event: () => getEvent(booking.obj.event)
   };
 };
 

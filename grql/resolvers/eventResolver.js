@@ -20,14 +20,33 @@ module.exports = {
   },
   createEvent: async (args, req) => {
     if (!req.isAuth) throw new Error("Unauthenticated");
-    const { title, description, price, date } = args.eventInput;
+    const {
+      title,
+      description,
+      price,
+      date,
+      dateEnd,
+      street,
+      city,
+      max,
+      status,
+      pics
+    } = args.eventInput;
     try {
       const event = new Event({
         title,
         description,
         price: +price,
         date: new Date(date),
-        creator: req.userId
+        dateEnd: dateEnd ? new Date(dateEnd) : null,
+        creator: req.userId,
+        location: {
+          street,
+          city
+        },
+        max,
+        status,
+        pics
       });
       const ev = await event.save();
 

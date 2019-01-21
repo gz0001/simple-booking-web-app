@@ -31,7 +31,7 @@ module.exports = {
       const event = await Event.findOne({ _id: eventId });
       if (!event) throw new Error("Event not found!");
       const booking = await new Booking({
-        event: event,
+        event: event._id,
         user: req.userId
       }).save();
 
@@ -47,7 +47,7 @@ module.exports = {
     try {
       const booking = await Booking.findById(bookingId).populate("event");
       const event = eventQL(booking.event);
-      await Booking.deleteOne({ _id: bookingId });
+      await booking.set({ status: "canceled" });
       return event;
     } catch (error) {
       throw error;
