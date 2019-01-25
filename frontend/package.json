@@ -36,5 +36,6 @@
   ],
   "devDependencies": {
     "stylelint-config-recommended": "^2.1.0"
-  }
+  },
+  "proxy": "http://app:1234"
 }

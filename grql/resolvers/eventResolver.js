@@ -5,13 +5,14 @@ const Booking = require("models/booking");
 
 // Utils:
 const { getUser, getEvent, getEvents, eventQL } = require("grql/utils");
+const queryHelper = require("grql/utils/queryHelper");
 
 //=========================================================================================
 
 module.exports = {
-  events: async () => {
+  events: async ({ option }) => {
     try {
-      const events = await Event.find();
+      const events = await queryHelper(Event, option);
       return events.map(event => eventQL(event));
     } catch (error) {
       console.log(error);

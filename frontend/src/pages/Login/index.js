@@ -64,7 +64,6 @@ class Login extends Component {
       })
       localStorage.setItem('token', token)
       localStorage.setItem('userId', userId)
-      this.props.history.push('/booking')
     } catch (error) {
       console.log('got err: ', error)
     }
@@ -87,7 +86,7 @@ class Login extends Component {
       <Mutation mutation={isLogin ? loginQL : createQL} variables={variables}>
         {(mutate, { loading, error, client }) => {
           return (
-            <Box className="Login page" justify="center" items="center" flex="column" w="auto">
+            <Box className="Login page" justify="center" items="center" flex="column" w="full">
               <Headline center text="first">
                 {isLogin ? 'Login here:' : 'Create an account:'}
               </Headline>

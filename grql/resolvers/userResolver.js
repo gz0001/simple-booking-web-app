@@ -7,14 +7,15 @@ const Booking = require("models/booking");
 
 // Utils:
 const { getUser, getEvent, getEvents, userQL } = require("grql/utils");
+const queryHelper = require("grql/utils/queryHelper");
 
 //=========================================================================================
 
 module.exports = {
-  users: async (args, req) => {
+  users: async ({ option }, req) => {
     if (!req.isAuth) throw new Error("Unauthenticated!");
     try {
-      const users = await User.find();
+      const users = await queryHelper(User, option);
       return users.map(user => userQL(user));
     } catch (error) {
       console.log(error);
@@ -70,22 +71,26 @@ module.exports = {
       if (!isEqual) {
         throw new Error("Password is not correct!");
       } else {
-        const token = await jwt.sign(
-          { userId: user.id, email: user._doc.email },
-          "truong92",
-          {
-            expiresIn: "7d"
-          }
-        );
-        return { userId: user.id, token, tokenExpiration: "7d" };
+        const token = await jwt.sign({ userId: user.id }, "truong92", {
+          expiresIn: "1h"
+        });
+        return { userId: user.id, token, tokenExpiration: "1h" };
       }
     } catch (error) {
       throw error;
     }
   },
   verifyToken: async (args, req) => {
-    return {
-      isAuth: req.isAuth
-    };
+    const { isAuth, userId } = req;
+    try {
+      if (!isAuth) throw new Error("token expired!");
+
+      const newToken = await jwt.sign({ userId }, "truong92", {
+        expiresIn: "1h"
+      });
+      return { userId, token: newToken, tokenExpiration: "1h" };
+    } catch (error) {
+      throw error;
+    }
   }
 };

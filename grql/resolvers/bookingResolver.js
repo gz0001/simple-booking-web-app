@@ -11,14 +11,15 @@ const {
   getEvent,
   getBooking
 } = require("grql/utils");
+const queryHelper = require("grql/utils/queryHelper");
 
 //=========================================================================================
 
 module.exports = {
-  bookings: async (args, req) => {
+  bookings: async ({ option }, req) => {
     //if (!req.isAuth) throw new Error("Unauthenticated!");
     try {
-      const bookings = await Booking.find();
+      const bookings = await queryHelper(Booking, option);
       return bookings.map(booking => bookingQL(booking));
     } catch (error) {
       throw error;
@@ -47,7 +48,7 @@ module.exports = {
     try {
       const booking = await Booking.findById(bookingId).populate("event");
       const event = eventQL(booking.event);
-      await booking.set({ status: "canceled" });
+      await booking.set({ status: "canceled" }).save();
       return event;
     } catch (error) {
       throw error;

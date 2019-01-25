@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import gql from 'graphql-tag'
+import { Box } from 'tt-react-ui-2'
 
 // Pages:
 import Login from './pages/Login'
@@ -11,14 +12,16 @@ import StyleGuide from 'pages/StyleGuide'
 // Private Route:
 const PrivateRoute = props => {
   const { auth, ...restProps } = props
-  return auth ? <Route {...restProps} /> : <Redirect to="/start" />
+  return auth ? <Route {...restProps} /> : <Redirect to={`/start`} />
 }
 
 // Verify token:
 const verifyToken = gql`
   mutation {
     verifyToken {
-      isAuth
+      userId
+      token
+      tokenExpiration
     }
   }
 `
@@ -32,15 +35,22 @@ class App extends Component {
     const { client } = this.props
     const token = localStorage.getItem('token')
     const userId = localStorage.getItem('userId')
+
     if (token) {
       try {
         const result = await client.mutate({ mutation: verifyToken })
-        const isAuth = result.data.verifyToken.isAuth
         console.log('token verified: ', result)
+        const newToken = result.data.verifyToken.token
 
+        localStorage.setItem('token', newToken)
         client.writeData({
           data: {
-            auth: { userId, token, isAuth, __typename: 'AuthStatus' }
+            auth: {
+              userId,
+              token: newToken,
+              isAuth: true,
+              __typename: 'AuthStatus'
+            }
           }
         })
       } catch (error) {
@@ -55,23 +65,32 @@ class App extends Component {
   }
 
   render() {
-    const { isAuth, loading } = this.props.data.auth
+    const {
+      client,
+      data: {
+        auth: { isAuth }
+      }
+    } = this.props
+
+    const { loading } = this.state
+    console.log('got auth: ', this.props)
 
     return (
-      <>
+      <Box className="App page">
         {loading ? (
           <div>Loading...</div>
         ) : (
-          <Switch>
-            <Redirect from="/" to={'/style'} exact />
-            <Route path="/style" component={StyleGuide} />
-            <Route path="/start" component={isAuth ? Booking : Login} exact />
-            <PrivateRoute auth={isAuth} path="/booking" component={Booking} />
-            <PrivateRoute auth={isAuth} path="/event" component={Event} />
-            <Route render={() => <h1 className="text-center">404. Page not founded</h1>} />
-          </Switch>
+          <div className="Route">
+            <Switch>
+              <Redirect from="/" to="/start" exact />
+              <Route auth={isAuth} path="/start" render={() => (isAuth ? <Event /> : <Login />)} />
+              <Route path="/style" render={() => <StyleGuide client={client} />} />
+              <PrivateRoute auth={isAuth} path="/booking" component={Booking} />
+              <Route render={() => <h1 className="text-center">404. Page not founded</h1>} />
+            </Switch>
+          </div>
         )}
-      </>
+      </Box>
     )
   }
 }

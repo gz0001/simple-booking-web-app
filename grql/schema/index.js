@@ -1,6 +1,7 @@
 const { buildSchema } = require("graphql");
 
 module.exports = buildSchema(`
+  scalar JSON
   # =================== Booking Schema ===================
   type Booking {
     _id: ID!
@@ -20,8 +21,8 @@ module.exports = buildSchema(`
     lastname: String!
     city: String!
     age: Int!
-    createdEvents: [Event!]
-    bookings: [Booking!]
+    createdEvents(option: Option = {}): [Event!]
+    bookings(option: Option = {}): [Booking!]
     pic: String
   }
 
@@ -48,9 +49,9 @@ module.exports = buildSchema(`
     description: String!
     price: Float!
     date: String!
-    dateEnd: String!
+    dateEnd: String
     creator: User!
-    bookings: [Booking!]
+    bookings(option: Option = {}): [Booking!]
     location: Location!
     max: Int!
     status: String!
@@ -77,15 +78,20 @@ module.exports = buildSchema(`
     tokenExpiration: String!
   }
 
-  type Verify {
-    isAuth: Boolean!
+  # =================== Option ===================
+  input Option {
+    filter: JSON 
+    limit: Int = 0
+    skip: Int = 0
+    sort: JSON = {}
   }
 
   # =================== Root ===================
   type RootQuery {
-    events: [Event!]!
-    users: [User!]
-    bookings: [Booking!]!
+    users(option: Option = {}): [User!]
+    user(name: String): User
+    events(option: Option = {}): [Event!]!
+    bookings(option: Option = {}): [Booking!]!
   }
 
   type RootMutation {
@@ -101,7 +107,7 @@ module.exports = buildSchema(`
 
     # Auth
     login(email: String!, password: String!): AuthData!
-    verifyToken: Verify!
+    verifyToken: AuthData!
   }
 
   schema {

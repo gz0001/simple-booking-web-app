@@ -3,6 +3,9 @@ const User = require("models/user");
 const Event = require("models/event");
 const Booking = require("models/booking");
 
+// Helper:
+const queryHelper = require("grql/utils/queryHelper");
+
 //=========================================================================================
 
 // User:
@@ -11,8 +14,8 @@ const getUser = async userId => {
     const user = await User.findById(userId);
     return {
       ...user.obj,
-      createdEvents: () => getEvents(user._doc.createdEvents),
-      bookings: () => getBookings(user._doc.bookings)
+      createdEvents: ({ option }) => getEvents(user._doc.createdEvents, option),
+      bookings: ({ option }) => getBookings(user._doc.bookings, option)
     };
   } catch (error) {
     throw error;
@@ -27,18 +30,18 @@ const getEvent = async eventId => {
     return {
       ...event.obj,
       creator: () => getUser(event._doc.creator),
-      bookings: () => getBookings(event._doc.bookings)
+      bookings: ({ option }) => getBookings(event._doc.bookings, option)
     };
   } catch (error) {}
 };
 
-const getEvents = async eventIds => {
+const getEvents = async (eventIds, option) => {
   try {
-    const events = await Event.find({ _id: { $in: eventIds } });
+    const events = await queryHelper(Event, option, { _id: { $in: eventIds } });
     return events.map(event => ({
       ...event.obj,
       creator: () => getUser(event._doc.creator),
-      bookings: () => getBookings(event._doc.bookings)
+      bookings: ({ option }) => getBookings(event._doc.bookings, option)
     }));
   } catch (error) {
     throw error;
@@ -60,9 +63,11 @@ const getBooking = async bookingId => {
   }
 };
 
-const getBookings = async bookingIds => {
+const getBookings = async (bookingIds, option) => {
   try {
-    const bookings = await Booking.find({ _id: { $in: bookingIds } });
+    const bookings = await queryHelper(Booking, option, {
+      _id: { $in: bookingIds }
+    });
     return bookings.map(booking => ({
       ...booking.obj,
       event: () => getEvent(booking.obj.event),
@@ -79,8 +84,8 @@ const userQL = user => {
   if (!user) return null;
   return {
     ...user.obj,
-    createdEvents: () => getEvents(user._doc.createdEvents),
-    bookings: () => getBookings(user._doc.bookings)
+    createdEvents: ({ option }) => getEvents(user._doc.createdEvents, option),
+    bookings: ({ option }) => getBookings(user._doc.bookings, option)
   };
 };
 
@@ -88,7 +93,8 @@ const eventQL = event => {
   if (!event) return null;
   return {
     ...event.obj,
-    creator: () => getUser(event._doc.creator)
+    creator: () => getUser(event._doc.creator),
+    bookings: ({ option }) => getBookings(event._doc.bookings, option)
   };
 };
 

@@ -11,7 +11,7 @@ module.exports = {
       plugins: [
         require('postcss-preset-env')({
           importFrom: varNames,
-          preserve: false,
+          preserve: true,
           autoprefixer: { grid: true },
           stage: 1,
           features: {

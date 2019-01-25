@@ -1,6 +1,6 @@
 :root {
   --textfield-padding: 1rem 1rem 0.5rem 1rem;
-  --textfield-material-padding: 1rem 0rem 0.5rem;
+  --textfield-material-padding: 1rem 0rem 0.2rem;
   --textfield-background: var(--grey);
   --textfield-material-background: transparent;
   /** Border: */
