@@ -28,10 +28,11 @@ const client = new ApolloClient({
         isAuth: false,
         __typename: 'AuthStatus'
       }
-    }
+    },
+    resolvers: {}
   }
 })
-client.initQueryManager()
+//client.initQueryManager()
 
 // Query AuthStatus:
 const authStatus = gql`

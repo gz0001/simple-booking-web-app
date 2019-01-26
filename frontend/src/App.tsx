@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import gql from 'graphql-tag'
 import { Box } from 'tt-react-ui-2'
+import posed, { PoseGroup } from 'react-pose'
 
 // Pages:
 import Login from './pages/Login'
@@ -10,7 +11,7 @@ import Event from './pages/Event'
 import StyleGuide from 'pages/StyleGuide'
 
 // Private Route:
-const PrivateRoute = props => {
+const PrivateRoute = (props: any) => {
   const { auth, ...restProps } = props
   return auth ? <Route {...restProps} /> : <Redirect to={`/start`} />
 }
@@ -26,7 +27,7 @@ const verifyToken = gql`
   }
 `
 
-class App extends Component {
+export default class App extends Component<any, any> {
   state = {
     loading: true
   }
@@ -61,7 +62,10 @@ class App extends Component {
         })
       }
     }
-    this.setState({ loading: false })
+    setTimeout(() => {
+      
+      this.setState({ loading: false })
+    }, 1000);
   }
 
   render() {
@@ -80,19 +84,16 @@ class App extends Component {
         {loading ? (
           <div>Loading...</div>
         ) : (
-          <div className="Route">
-            <Switch>
-              <Redirect from="/" to="/start" exact />
-              <Route auth={isAuth} path="/start" render={() => (isAuth ? <Event /> : <Login />)} />
-              <Route path="/style" render={() => <StyleGuide client={client} />} />
-              <PrivateRoute auth={isAuth} path="/booking" component={Booking} />
-              <Route render={() => <h1 className="text-center">404. Page not founded</h1>} />
-            </Switch>
-          </div>
+          <Switch>
+            <Redirect from="/" to="/start" exact />
+            <Route auth={isAuth} path="/start" render={() => (isAuth ? <Event /> : <Login />)} />
+            <Route path="/style" render={() => <StyleGuide client={client} />} />
+            <PrivateRoute auth={isAuth} path="/booking" component={Booking} />
+            <Route render={() => <h1 className="text-center">404. Page not founded</h1>} />
+          </Switch>
         )}
+        
       </Box>
     )
   }
 }
-
-export default App

@@ -11,7 +11,7 @@ const query = gql`
     }
   }
 `
-class StyleGuide extends Component {
+class StyleGuide extends Component<any,any> {
   handleClick = async () => {
     const { client } = this.props
     const option = { sort: { date: 1 }, filter: { title: { $regex: 'new event' } } }

@@ -18,6 +18,9 @@
   --selectbox-label-color: var(--grey-dark);
   --selectbox-label-top: -100%;
   --selectbox-native-label-top: -150%;
+   /** Value */
+  --selectbox-value-pt: 0.5rem;
+  --selectbox-value-color: var(--text);
   /** List: */
   --selectbox-list-border: var(--border);
   --selectbox-list-border-radius: var(--border-radius);

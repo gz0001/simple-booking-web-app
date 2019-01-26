@@ -1,7 +1,9 @@
+// @ts-nocheck
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import { Textfield, Button, Box, Headline } from 'tt-react-ui-2'
+import { any } from 'prop-types'
 // Styles:
 //import "./style.scss";
 
@@ -25,9 +27,12 @@ const createQL = gql`
     }
   }
 `
+type SubmitFnc = {
+  (a: any, b: any): (e?: React.MouseEvent<HTMLButtonElement, MouseEvent> | React.FormEvent<HTMLFormElement>) => void
+}
 
-class Login extends Component {
-  state = {
+class Login extends Component<any, any> {
+  state: any = {
     email: '',
     password: '',
     name: '',
@@ -38,9 +43,9 @@ class Login extends Component {
 
   inputHandler = {}
 
-  handleInput = key => {
+  handleInput = (key: any) => {
     if (!this.inputHandler[key]) {
-      this.inputHandler[key] = text => {
+      this.inputHandler[key] = (text: string) => {
         this.setState({
           [key]: key === 'age' ? parseInt(text) : text
         })
@@ -49,7 +54,9 @@ class Login extends Component {
     return this.inputHandler[key]
   }
 
-  handleSubmit = (mutate, client) => async e => {
+  handleSubmit = (mutate: any, client: any) => async (
+    e?: React.MouseEvent<HTMLButtonElement, MouseEvent> | React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault()
     const { isLogin } = this.state
     const field = isLogin ? 'login' : 'createUser'
@@ -70,7 +77,7 @@ class Login extends Component {
   }
 
   toogleMode = () => {
-    this.setState(({ isLogin }) => ({
+    this.setState(({ isLogin }: any) => ({
       email: '',
       password: '',
       name: '',
@@ -86,7 +93,7 @@ class Login extends Component {
       <Mutation mutation={isLogin ? loginQL : createQL} variables={variables}>
         {(mutate, { loading, error, client }) => {
           return (
-            <Box className="Login page" justify="center" items="center" flex="column" w="full">
+            <Box className="Login page" justify="center" items="center" flex="col" w="full">
               <Headline center text="first">
                 {isLogin ? 'Login here:' : 'Create an account:'}
               </Headline>
@@ -125,6 +132,8 @@ class Login extends Component {
                   )}
                 </div>
                 <div className="d-flex justify-content-between">
+                  {/** 
+                  // @ts-ignore */}
                   <Button type="first" onClick={this.handleSubmit}>
                     {isLogin ? 'Login' : 'Register'}
                   </Button>

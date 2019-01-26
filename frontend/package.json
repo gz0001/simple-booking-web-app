@@ -3,21 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@craco/craco": "^3.2.3",
+    "@craco/craco": "^3.4.0",
     "@types/graphql": "^14.0.5",
+    "@types/jest": "^23.3.13",
+    "@types/node": "^10.12.18",
+    "@types/react": "^16.7.20",
+    "@types/react-dom": "^16.0.11",
     "apollo-boost": "^0.1.25",
     "axios": "^0.18.0",
-    "bootstrap": "^4.1.3",
     "graphql": "^14.1.1",
     "graphql-tag": "^2.10.0",
     "react": "16.7.0-alpha.0",
     "react-apollo": "^2.3.3",
     "react-dom": "16.7.0-alpha.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.1",
-    "tailwindcss": "^0.7.3",
-    "tt-react-ui-2": "0.0.13",
-    "typescript": "^3.2.2"
+    "react-scripts": "2.1.3",
+    "tailwindcss": "^0.7.4",
+    "tt-react-ui-2": "0.0.14-s",
+    "typescript": "^3.2.4"
   },
   "scripts": {
     "start": "craco start --config craco.config.js",
@@ -35,6 +38,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@types/react-router-dom": "^4.3.1",
     "stylelint-config-recommended": "^2.1.0"
   },
   "proxy": "http://app:1234"
