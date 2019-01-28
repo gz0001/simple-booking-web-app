@@ -1,0 +1,5 @@
+.Auth {
+  &-form {
+    min-height: 25rem;
+  }
+}

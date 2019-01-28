@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Box, Container, Col, Row } from 'tt-react-ui-2'
-import Button from 'atoms/Button'
+import { Box, Container, Col, Row, Dialog } from 'tt-react-ui-2'
+import { Link } from 'react-router-dom'
+import {Button} from 'atoms/Button'
 import gql from 'graphql-tag'
 
 const query = gql`
@@ -11,7 +12,11 @@ const query = gql`
     }
   }
 `
-class StyleGuide extends Component<any,any> {
+class StyleGuide extends Component<any, any> {
+  state = {
+    open: false
+  }
+
   handleClick = async () => {
     const { client } = this.props
     const option = { sort: { date: 1 }, filter: { title: { $regex: 'new event' } } }
@@ -23,16 +28,20 @@ class StyleGuide extends Component<any,any> {
     }
   }
   render() {
+    const { open } = this.state
     return (
       <div className="StyleGuide page">
+        <Dialog open={open} onClose={() => this.setState({ open: false })} color="white">
+          <Button onClick={() => this.setState({ open: false })}>close</Button>
+        </Dialog>
         <Container fluid>
           <Row>
             <Col cols="3">
               <Button onClick={this.handleClick}>Style here</Button>
             </Col>
             <Col cols="3">
-              <Button onClick={() => console.log('click')} bg="second">
-                Style here
+              <Button onClick={() => this.setState({ open: true })} bg="second">
+                Style here dia
               </Button>
             </Col>
             <Col cols="3">
@@ -41,11 +50,12 @@ class StyleGuide extends Component<any,any> {
               </Button>
             </Col>
             <Col cols="3">
-              <Button onClick={() => console.log('click')} bg="fourth">
+              <Button onClick={() => console.log(this.props)} bg="fourth">
                 Style here
               </Button>
             </Col>
           </Row>
+          <Link to="/start">Back to start</Link>
         </Container>
       </div>
     )

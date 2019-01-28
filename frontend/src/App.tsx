@@ -3,12 +3,18 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import gql from 'graphql-tag'
 import { Box } from 'tt-react-ui-2'
 import posed, { PoseGroup } from 'react-pose'
+import tween from 'popmotion'
+
+// Components:
+import { Loading } from 'atoms/Loading'
 
 // Pages:
+import { Auth } from 'pages/Auth'
 import Login from './pages/Login'
 import Booking from './pages/Booking'
 import Event from './pages/Event'
 import StyleGuide from 'pages/StyleGuide'
+import { AnimatedBox } from 'atoms/AnimatedBox'
 
 // Private Route:
 const PrivateRoute = (props: any) => {
@@ -26,6 +32,12 @@ const verifyToken = gql`
     }
   }
 `
+
+// Posed:
+const FadeInBox = posed(AnimatedBox)({
+  preEnter: { opacity: 0 },
+  enter: { opacity: 1, beforeChildren: true }
+})
 
 export default class App extends Component<any, any> {
   state = {
@@ -63,9 +75,8 @@ export default class App extends Component<any, any> {
       }
     }
     setTimeout(() => {
-      
       this.setState({ loading: false })
-    }, 1000);
+    }, 500)
   }
 
   render() {
@@ -82,17 +93,22 @@ export default class App extends Component<any, any> {
     return (
       <Box className="App page">
         {loading ? (
-          <div>Loading...</div>
+          <Box className="App-load" justify="center" items="center" key="load">
+            <Loading />
+          </Box>
         ) : (
-          <Switch>
-            <Redirect from="/" to="/start" exact />
-            <Route auth={isAuth} path="/start" render={() => (isAuth ? <Event /> : <Login />)} />
-            <Route path="/style" render={() => <StyleGuide client={client} />} />
-            <PrivateRoute auth={isAuth} path="/booking" component={Booking} />
-            <Route render={() => <h1 className="text-center">404. Page not founded</h1>} />
-          </Switch>
+          <PoseGroup preEnterPose="preEnter" animateOnMount>
+            <FadeInBox className="App-content" key="app-content">
+              <Switch>
+                <Redirect from="/" to="/start" exact />
+                <Route auth={isAuth} path="/start" render={() => (isAuth ? <Event /> : <Auth />)} />
+                <Route path="/style" render={() => <StyleGuide client={client} />} />
+                <PrivateRoute auth={isAuth} path="/booking" component={Booking} />
+                <Route render={() => <h1 className="text-center">404. Page not founded</h1>} />
+              </Switch>
+            </FadeInBox>
+          </PoseGroup>
         )}
-        
       </Box>
     )
   }

@@ -62,7 +62,7 @@ let colors = {
   success: '#2ecc71',
   'success-dark': '#27ae60',
 
-  text: '#333',
+  text: '#ffffff',
   'text-dark': '#999',
 
   // Tailwind colors:
@@ -70,13 +70,14 @@ let colors = {
 
   black: '#22292f',
   'grey-darkest': '#3d4852',
-  'grey-darker': 'rgb(241, 241, 241)',
+  'grey-darker': '#5f5f5f',
   'grey-dark': '#adadad',
   grey: '#eff0f4',
   'grey-light': '#dae1e7',
   'grey-lighter': '#f1f5f8',
   'grey-lightest': '#f8fafc',
-  white: '#ffffff'
+  white: '#ffffff',
+  box: '#2b2b2b'
 }
 
 module.exports = {

@@ -12,9 +12,10 @@
   --error-dark: #9a2e23;
   --grey: #eff0f4;
   --grey-dark: #adadad;
-  --grey-darker: rgb(241, 241, 241);
+  --grey-darker: #5f5f5f;
   --success: #2ecc71;
   --success-dark: #27ae60;
-  --text: #333;
+  --text: #fff;
   --text-dark: #999;
+  --box: ##2b2b2b;
 }

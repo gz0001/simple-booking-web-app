@@ -5,6 +5,8 @@ import ApolloClient from 'apollo-boost'
 import { ApolloProvider, Query } from 'react-apollo'
 import gql from 'graphql-tag'
 
+import '../node_modules/slick-carousel/slick/slick.css'
+import '../node_modules/slick-carousel/slick/slick-theme.css'
 import '../node_modules/tt-react-ui-2/build/index.css'
 import './style.css'
 import App from './App'

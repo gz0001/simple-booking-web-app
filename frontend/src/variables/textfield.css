@@ -8,8 +8,8 @@
   --textfield-border-radius: var(--border-radius);
   --textfield-material-border-thickness: 1.5px;
   --textfield-material-border-thickness-active: 2px;
-  --textfield-material-border: var(--textfield-material-border-thickness) solid var(--grey);
-  --textfield-material-border-hover: var(--textfield-material-border-thickness-active) solid #000;
+  --textfield-material-border: var(--textfield-material-border-thickness) solid var(--grey-darker);
+  --textfield-material-border-hover: var(--textfield-material-border-thickness-active) solid #fff;
   --textfield-material-border-active: var(--textfield-material-border-thickness-active) solid var(--first);
   /** Label: */
   --textfield-label-color: var(--grey-dark);

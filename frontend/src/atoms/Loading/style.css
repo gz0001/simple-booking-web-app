@@ -1,0 +1,38 @@
+.Loading {
+  animation: rotation 1.5s linear infinite;
+}
+
+.Loading-circel {
+  stroke-dasharray: 180;
+  stroke-dashoffset: 0;
+  transform-origin: center;
+  stroke: var(--first);
+  animation: dash-animation 1.5s ease-in-out infinite;
+    }
+
+
+
+@keyframes rotation {
+  from {
+    transform: rotate( 0deg );
+  }
+  to {
+    transform: rotate( 360deg );
+  }
+}
+
+@keyframes dash-animation {
+  0% {
+    stroke-dashoffset: 187;
+  }
+  
+  50% {
+    stroke-dashoffset: 10;
+    transform: rotate( 20deg );
+  }
+  
+  100% {
+    stroke-dashoffset: 187;
+    transform: rotate( 360deg );
+  }
+}
