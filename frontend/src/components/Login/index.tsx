@@ -3,6 +3,7 @@ import cx from 'classnames'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import posed, { PoseGroup } from 'react-pose'
+import { tween } from 'popmotion'
 import { Box, Headline, Text, createState } from 'tt-react-ui-2'
 
 // Components:
@@ -24,6 +25,20 @@ const loginQL = gql`
   }
 `
 // Animations:
+const FadeContainer = posed.form({
+  preEnter: {
+    opacity: 0
+  },
+  enter: {
+    staggerChildren: 200,
+    beforeChildren: true,
+    opacity: 1,
+    y: '0',
+    delay: 100,
+    duration: 100
+  }
+})
+
 const FadeInBox = posed(AnimatedBox)({
   preEnter: {
     opacity: 0,
@@ -33,12 +48,10 @@ const FadeInBox = posed(AnimatedBox)({
     delay: 300,
     opacity: 1,
     x: 0,
-    duration: 200
-  },
-  exit: {
-    opacity: 0,
-    x: '-20%',
-    duration: 300
+    duration: 200,
+    transition: props => {
+      return tween(props)
+    }
   }
 })
 
@@ -49,32 +62,40 @@ export interface LoginProps {
 }
 
 export const Login: React.FunctionComponent<LoginProps> = ({ setLogin }) => {
-  // Hooks
+  // Hooks:
+  const form = React.useRef(null)
   const [state, setState] = createState({ email: '', password: '' })
   const { email, password } = state
 
   // Handlers:
-  const handleLogin = async (mutate, client) => {
-    try {
-      const result = await mutate()
-      console.log('got res: ', result)
-      const { token, userId } = result.data.login
-      client.writeData({
-        data: {
-          auth: { userId, token, isAuth: true, __typename: 'AuthStatus' }
-        }
-      })
-      localStorage.setItem('token', token)
-      localStorage.setItem('userId', userId)
-    } catch (error) {
-      console.log('got err: ', error)
+  const handleLogin = async (mutate, client, e) => {
+    if (form.current.checkValidity()) {
+      e.preventDefault()
+      try {
+        const result = await mutate()
+        console.log('got res: ', result)
+        const { token, userId } = result.data.login
+        client.writeData({
+          data: {
+            auth: { userId, token, isAuth: true, __typename: 'AuthStatus' }
+          }
+        })
+        localStorage.setItem('token', token)
+        localStorage.setItem('userId', userId)
+      } catch (error) {
+        console.log('got err: ', error)
+      }
     }
   }
 
   return (
     <Mutation mutation={loginQL} variables={{ email, password }} fetchPolicy="no-cache">
       {(mutate, { loading, error, client }) => (
-        <Box className={cx('Login')} flex="col" px="6">
+        <FadeContainer
+          className={cx('Login flex flex-col px-6')}
+          onSubmit={e => handleLogin(mutate, client, e)}
+          ref={form}
+        >
           <FadeInBox flex="col">
             <Headline level="2">Sign In</Headline>
             <Text size="xs" mt="2">
@@ -84,27 +105,25 @@ export const Login: React.FunctionComponent<LoginProps> = ({ setLogin }) => {
           <FadeInBox mt="6">
             <Textfield
               className={cx('Login-username flex-1')}
+              inputProps={{ required: true }}
               label="Email"
-              value={email}
               onInput={(email: string) => setState({ email })}
+              type="email"
+              value={email}
             />
           </FadeInBox>
           <FadeInBox mt="2">
             <Textfield
               className={cx('Login-username flex-1')}
+              inputProps={{ required: true }}
               label="Password"
+              onInput={(password: string) => setState({ password })}
               type="password"
               value={password}
-              onInput={(password: string) => setState({ password })}
             />
           </FadeInBox>
           <FadeInBox mt="6">
-            <Button
-              className={cx('Login-submit')}
-              flex="1"
-              onClick={() => handleLogin(mutate, client)}
-              loading={loading}
-            >
+            <Button className={cx('Login-submit')} flex="1" type="submit" loading={loading}>
               Sign in
             </Button>
           </FadeInBox>
@@ -122,7 +141,7 @@ export const Login: React.FunctionComponent<LoginProps> = ({ setLogin }) => {
               Failed to login. Please try again !
             </Text>
           )}
-        </Box>
+        </FadeContainer>
       )}
     </Mutation>
   )
