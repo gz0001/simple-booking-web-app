@@ -3,7 +3,7 @@ import cx from 'classnames'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import posed, { PoseGroup } from 'react-pose'
-import { tween } from 'popmotion'
+import { tween, spring } from 'popmotion'
 import { Box, Headline, Text, createState } from 'tt-react-ui-2'
 
 // Components:
@@ -128,7 +128,6 @@ export const Register: React.FunctionComponent<RegisterProps> = ({ setLogin }) =
   }
 
   const handleRegister = async (mutate, client, e) => {
-
     const valid = validateForm()
     setState({ valid })
 

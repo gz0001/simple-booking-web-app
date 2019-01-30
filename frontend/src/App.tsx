@@ -10,7 +10,6 @@ import { Loading } from 'atoms/Loading'
 
 // Pages:
 import { Auth } from 'pages/Auth'
-import Login from './pages/Login'
 import Booking from './pages/Booking'
 import Event from './pages/Event'
 import StyleGuide from 'pages/StyleGuide'

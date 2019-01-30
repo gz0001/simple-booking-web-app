@@ -1,0 +1,398 @@
+@font-face {
+  font-family: 'icomoon';
+  src: url('../assets/fonts/icomoon/icomoon.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^='icon-'],
+[class*=' icon-'] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-cup:before {
+  content: '\e95a';
+}
+
+.icon-supplychain:before {
+  content: '\e95b';
+}
+
+.icon-competitor_1 .path1:before {
+  content: '\e952';
+  color: black;
+}
+
+.icon-competitor_1 .path2:before {
+  content: '\e953';
+  margin-left: -1em;
+  color: white;
+}
+
+.icon-competitor_1 .path3:before {
+  content: '\e954';
+  margin-left: -1em;
+  color: black;
+}
+
+.icon-competitor_1 .path4:before {
+  content: '\e955';
+  margin-left: -1em;
+  color: black;
+}
+
+.icon-competitor_1 .path5:before {
+  content: '\e956';
+  margin-left: -1em;
+  color: white;
+}
+
+.icon-competitor_1 .path6:before {
+  content: '\e957';
+  margin-left: -1em;
+  color: white;
+}
+
+.icon-competitor_2:before {
+  content: '\e958';
+}
+
+.icon-airport:before {
+  content: '\e951';
+}
+
+.icon-map_company:before {
+  content: '\e94f';
+}
+
+.icon-company:before {
+  content: '\e950';
+}
+
+.icon-news:before {
+  content: '\e929';
+}
+
+.icon-supplier:before {
+  content: '\e91a';
+}
+
+.icon-logo:before {
+  content: '\e928';
+}
+
+.icon-stocks:before {
+  content: '\e91e';
+  color: #1f3252;
+}
+
+.icon-employees:before {
+  content: '\e91f';
+  color: #1f3252;
+}
+
+.icon-figures:before {
+  content: '\e921';
+  color: #1f3252;
+}
+
+.icon-risk_icon_avalanche:before {
+  content: '\e92a';
+}
+
+.icon-risk_icon_baisse:before {
+  content: '\e92b';
+}
+
+.icon-risk_icon_bio_hazard:before {
+  content: '\e92c';
+}
+
+.icon-risk_icon_car_truck_accident:before {
+  content: '\e92e';
+}
+
+.icon-risk_icon_cbrn:before {
+  content: '\e92f';
+}
+
+.icon-risk_icon_cold_wave:before {
+  content: '\e930';
+}
+
+.icon-risk_icon_cosmic_event_impact:before {
+  content: '\e931';
+}
+
+.icon-risk_icon_crime:before {
+  content: '\e932';
+}
+
+.icon-risk_icon_csr:before {
+  content: '\e933';
+}
+
+.icon-risk_icon_default:before {
+  content: '\e934';
+}
+
+.icon-risk_icon_drought:before {
+  content: '\e935';
+}
+
+.icon-risk_icon_earthquake:before {
+  content: '\e936';
+}
+
+.icon-risk_icon_economic:before {
+  content: '\e937';
+}
+
+.icon-risk_icon_environmental_pollution:before {
+  content: '\e938';
+}
+
+.icon-risk_icon_epidemic:before {
+  content: '\e939';
+}
+
+.icon-risk_icon_explosion:before {
+  content: '\e93a';
+}
+
+.icon-risk_icon_fire:before {
+  content: '\e93b';
+}
+
+.icon-risk_icon_flood:before {
+  content: '\e93c';
+}
+
+.icon-risk_icon_force_majeure:before {
+  content: '\e93d';
+}
+
+.icon-risk_icon_giantwave:before {
+  content: '\e93e';
+}
+
+.icon-risk_icon_heat_wave:before {
+  content: '\e93f';
+}
+
+.icon-risk_icon_humaitarian_crisis:before {
+  content: '\e940';
+}
+
+.icon-risk_icon_infrastructure_power_outage:before {
+  content: '\e941';
+}
+
+.icon-risk_icon_landslide:before {
+  content: '\e942';
+}
+
+.icon-risk_icon_legal:before {
+  content: '\e943';
+}
+
+.icon-risk_icon_plane_accident:before {
+  content: '\e944';
+}
+
+.icon-risk_icon_political:before {
+  content: '\e945';
+}
+
+.icon-risk_icon_ressources:before {
+  content: '\e946';
+}
+
+.icon-risk_icon_ship_accident:before {
+  content: '\e947';
+}
+
+.icon-risk_icon_storm:before {
+  content: '\e948';
+}
+
+.icon-risk_icon_terror_attack:before {
+  content: '\e949';
+}
+
+.icon-risk_icon_train_accident:before {
+  content: '\e94a';
+}
+
+.icon-risk_icon_tsunami:before {
+  content: '\e94b';
+}
+
+.icon-risk_icon_volcano:before {
+  content: '\e94c';
+}
+
+.icon-legend:before {
+  content: '\e927';
+}
+
+.icon-sort-by-count:before {
+  content: '\e94d';
+}
+
+.icon-sort-by-alphabet:before {
+  content: '\e94e';
+}
+
+.icon-delete:before {
+  content: '\e92d';
+}
+
+.icon-private:before {
+  content: '\e922';
+}
+
+.icon-public:before {
+  content: '\e923';
+}
+
+.icon-topics:before {
+  content: '\e91d';
+}
+
+.icon-keywords:before {
+  content: '\e90e';
+}
+
+.icon-language:before {
+  content: '\e920';
+}
+
+.icon-risk:before {
+  content: '\e90f';
+}
+
+.icon-search:before {
+  content: '\e91c';
+}
+
+.icon-period:before {
+  content: '\e913';
+}
+
+.icon-comment:before {
+  content: '\e914';
+}
+
+.icon-folder:before {
+  content: '\e915';
+}
+
+.icon-location:before {
+  content: '\e916';
+}
+
+.icon-organization:before {
+  content: '\e917';
+}
+
+.icon-person:before {
+  content: '\e918';
+}
+
+.icon-source:before {
+  content: '\e919';
+}
+
+.icon-tag:before {
+  content: '\e91b';
+}
+
+.icon-eye:before {
+  content: '\e924';
+}
+
+.icon-max:before {
+  content: '\e925';
+}
+
+.icon-min:before {
+  content: '\e926';
+}
+
+.icon-save:before {
+  content: '\e911';
+}
+
+.icon-alert:before {
+  content: '\e90c';
+}
+
+.icon-download:before {
+  content: '\e90d';
+}
+
+.icon-share:before {
+  content: '\e910';
+}
+
+.icon-right-arrow:before {
+  content: '\e90b';
+}
+
+.icon-back:before {
+  content: '\e912';
+}
+
+.icon-close:before {
+  content: '\e909';
+}
+
+.icon-foreign:before {
+  content: '\e90a';
+}
+
+.icon-geo:before {
+  content: '\e908';
+}
+
+.icon-right:before {
+  content: '\e904';
+}
+
+.icon-left:before {
+  content: '\e905';
+}
+
+.icon-top:before {
+  content: '\e906';
+}
+
+.icon-bottom:before {
+  content: '\e907';
+}
+
+.icon-list:before {
+  content: '\e901';
+}
+
+.icon-maplist:before {
+  content: '\e902';
+}
+
+.icon-map:before {
+  content: '\e903';
+}
+
+.icon-checked:before {
+  content: '\e900';
+}

@@ -108,7 +108,6 @@ export const Login: React.FunctionComponent<LoginProps> = ({ setLogin }) => {
               inputProps={{ required: true }}
               label="Email"
               onInput={(email: string) => setState({ email })}
-              type="email"
               value={email}
             />
           </FadeInBox>
