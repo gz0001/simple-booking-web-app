@@ -76,9 +76,10 @@ const FadeInBox = posed(AnimatedBox)({
 
 export interface RegisterProps {
   setLogin: React.Dispatch<React.SetStateAction<boolean>>
+  isLogin: boolean
 }
 
-export const Register: React.FunctionComponent<RegisterProps> = ({ setLogin }) => {
+export const Register: React.FunctionComponent<RegisterProps> = ({ setLogin, isLogin }) => {
   // Hooks:
   const form = React.useRef(null)
 
@@ -160,108 +161,113 @@ export const Register: React.FunctionComponent<RegisterProps> = ({ setLogin }) =
     >
       {(mutate, { loading, error, client }) => {
         return (
-          <FadeContainer
-            className={cx('Register flex flex-col px-6')}
-            ref={form}
-            key="register"
-            onSubmit={e => handleRegister(mutate, client, e)}
-          >
-            <FadeInBox flex="col">
-              <Headline level="2">Sign up</Headline>
-              <Text size="xs" mt="2">
-                Join the greate community.
-              </Text>
-            </FadeInBox>
-            <FadeInBox mt="6">
-              <Textfield
-                className={cx('Register-firstname mr-4 w-1/2')}
-                label="First name"
-                inputProps={{ required: true }}
-                value={firstname}
-                onInput={(firstname: string) => setState({ firstname })}
-              />
-              <Textfield
-                className={cx('Register-lastname w-1/2')}
-                label="Last name"
-                inputProps={{ required: true }}
-                value={lastname}
-                onInput={(lastname: string) => setState({ lastname })}
-              />
-            </FadeInBox>
+          <PoseGroup preEnterPose="preEnter">
+            {!isLogin && (
+              <FadeContainer
+                className={cx('Register flex flex-col px-6')}
+                ref={form}
+                key="register"
+                onSubmit={e => handleRegister(mutate, client, e)}
+                withParent={false}
+              >
+                <FadeInBox flex="col">
+                  <Headline level="2">Sign up</Headline>
+                  <Text size="xs" mt="2">
+                    Join the greate community.
+                  </Text>
+                </FadeInBox>
+                <FadeInBox mt="6">
+                  <Textfield
+                    className={cx('Register-firstname mr-4 w-1/2')}
+                    label="First name"
+                    inputProps={{ required: true }}
+                    value={firstname}
+                    onInput={(firstname: string) => setState({ firstname })}
+                  />
+                  <Textfield
+                    className={cx('Register-lastname w-1/2')}
+                    label="Last name"
+                    inputProps={{ required: true }}
+                    value={lastname}
+                    onInput={(lastname: string) => setState({ lastname })}
+                  />
+                </FadeInBox>
 
-            <FadeInBox mt="2">
-              <Textfield
-                className={cx('Register-username flex-1')}
-                inputProps={{ required: true }}
-                label="Email"
-                type="email"
-                value={email}
-                onInput={(email: string) => setState({ email })}
-              />
-            </FadeInBox>
-            <FadeInBox mt="2">
-              <Textfield
-                className={cx('Register-password flex-1')}
-                label="Password"
-                inputProps={{ required: true }}
-                type="password"
-                value={password}
-                onInput={(password: string) => setState({ password })}
-              />
-            </FadeInBox>
-            <FadeInBox mt="2">
-              <Textfield
-                className={cx('Register-password flex-1')}
-                label="Repeat password"
-                inputProps={{ required: true }}
-                type="password"
-                value={passwordRepeat}
-                onInput={(passwordRepeat: string) => setState({ passwordRepeat })}
-              />
-            </FadeInBox>
-            <FadeInBox mt="2">
-              <Textfield
-                className={cx('Register-age mr-4 w-1/2')}
-                label="Age"
-                inputProps={{ required: true }}
-                type="number"
-                value={age}
-                onInput={(age: string) => setState({ age })}
-              />
-              <Textfield
-                className={cx('Register-lastname w-1/2')}
-                inputProps={{ required: true }}
-                label="City"
-                value={city}
-                onInput={(city: string) => setState({ city })}
-              />
-            </FadeInBox>
-            <FadeInBox mt="6">
-              <Button className={cx('Login-submit')} flex="1" type="submit" loading={loading}>
-                Sign up
-              </Button>
-            </FadeInBox>
-            <FadeInBox mt="2">
-              <Text display="block" center size="xs" flex="1">
-                Already have an account?
-                <Button inline h="auto" w="auto" ripple={false} onClick={() => setLogin(true)}>
-                  Sign in
-                </Button>
-              </Text>
-            </FadeInBox>
+                <FadeInBox mt="2">
+                  <Textfield
+                    className={cx('Register-username flex-1')}
+                    inputProps={{ required: true }}
+                    label="Email"
+                    type="email"
+                    value={email}
+                    onInput={(email: string) => setState({ email })}
+                  />
+                </FadeInBox>
+                <FadeInBox mt="2">
+                  <Textfield
+                    className={cx('Register-password flex-1')}
+                    label="Password"
+                    inputProps={{ required: true }}
+                    type="password"
+                    value={password}
+                    onInput={(password: string) => setState({ password })}
+                  />
+                </FadeInBox>
+                <FadeInBox mt="2">
+                  <Textfield
+                    className={cx('Register-password flex-1')}
+                    label="Repeat password"
+                    inputProps={{ required: true }}
+                    type="password"
+                    value={passwordRepeat}
+                    onInput={(passwordRepeat: string) => setState({ passwordRepeat })}
+                  />
+                </FadeInBox>
+                <FadeInBox mt="2">
+                  <Textfield
+                    className={cx('Register-age mr-4 w-1/2')}
+                    label="Age"
+                    inputProps={{ required: true }}
+                    type="number"
+                    value={age}
+                    onInput={(age: string) => setState({ age })}
+                  />
+                  <Textfield
+                    className={cx('Register-lastname w-1/2')}
+                    inputProps={{ required: true }}
+                    label="City"
+                    value={city}
+                    onInput={(city: string) => setState({ city })}
+                  />
+                </FadeInBox>
+                <FadeInBox mt="6">
+                  <Button className={cx('Login-submit')} flex="1" type="submit" loading={loading}>
+                    Sign up
+                  </Button>
+                </FadeInBox>
+                <FadeInBox mt="2">
+                  <Text display="block" center size="xs" flex="1">
+                    Already have an account?
+                    <Button inline h="auto" w="auto" ripple={false} onClick={() => setLogin(true)}>
+                      Sign in
+                    </Button>
+                  </Text>
+                </FadeInBox>
 
-            {error && (
-              <Text display="block" color="error" center mt="2" size="xs">
-                Failed to register. Please try again !
-              </Text>
+                {error && (
+                  <Text display="block" color="error" center mt="2" size="xs">
+                    Failed to register. Please try again !
+                  </Text>
+                )}
+
+                {!valid.value && (
+                  <Text display="block" color="error" center mt="2" size="xs">
+                    {valid.message}
+                  </Text>
+                )}
+              </FadeContainer>
             )}
-
-            {!valid.value && (
-              <Text display="block" color="error" center mt="2" size="xs">
-                {valid.message}
-              </Text>
-            )}
-          </FadeContainer>
+          </PoseGroup>
         )
       }}
     </Mutation>

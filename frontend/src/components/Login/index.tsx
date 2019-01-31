@@ -59,9 +59,10 @@ const FadeInBox = posed(AnimatedBox)({
 
 export interface LoginProps {
   setLogin: React.Dispatch<React.SetStateAction<boolean>>
+  isLogin: boolean
 }
 
-export const Login: React.FunctionComponent<LoginProps> = ({ setLogin }) => {
+export const Login: React.FunctionComponent<LoginProps> = ({ setLogin, isLogin }) => {
   // Hooks:
   const form = React.useRef(null)
   const [state, setState] = createState({ email: '', password: '' })
@@ -91,56 +92,62 @@ export const Login: React.FunctionComponent<LoginProps> = ({ setLogin }) => {
   return (
     <Mutation mutation={loginQL} variables={{ email, password }} fetchPolicy="no-cache">
       {(mutate, { loading, error, client }) => (
-        <FadeContainer
-          className={cx('Login flex flex-col px-6')}
-          onSubmit={e => handleLogin(mutate, client, e)}
-          ref={form}
-        >
-          <FadeInBox flex="col">
-            <Headline level="2">Sign In</Headline>
-            <Text size="xs" mt="2">
-              Enter your email and password to proceed.
-            </Text>
-          </FadeInBox>
-          <FadeInBox mt="6">
-            <Textfield
-              className={cx('Login-username flex-1')}
-              inputProps={{ required: true }}
-              label="Email"
-              onInput={(email: string) => setState({ email })}
-              value={email}
-            />
-          </FadeInBox>
-          <FadeInBox mt="2">
-            <Textfield
-              className={cx('Login-username flex-1')}
-              inputProps={{ required: true }}
-              label="Password"
-              onInput={(password: string) => setState({ password })}
-              type="password"
-              value={password}
-            />
-          </FadeInBox>
-          <FadeInBox mt="6">
-            <Button className={cx('Login-submit')} flex="1" type="submit" loading={loading}>
-              Sign in
-            </Button>
-          </FadeInBox>
-          <FadeInBox mt="2">
-            <Text display="block" center size="xs" flex="1">
-              Dont have an account?
-              <Button inline h="auto" w="auto" ripple={false} onClick={() => setLogin(false)}>
-                Create Account
-              </Button>
-            </Text>
-          </FadeInBox>
+        <PoseGroup preEnterPose="preEnter" animateOnMount={true}>
+          {isLogin && (
+            <FadeContainer
+              className={cx('Login flex flex-col px-6')}
+              onSubmit={e => handleLogin(mutate, client, e)}
+              ref={form}
+              key="login"
+              withParent={false}
+            >
+              <FadeInBox flex="col">
+                <Headline level="2">Sign In</Headline>
+                <Text size="xs" mt="2">
+                  Enter your email and password to proceed.
+                </Text>
+              </FadeInBox>
+              <FadeInBox mt="6">
+                <Textfield
+                  className={cx('Login-username flex-1')}
+                  inputProps={{ required: true }}
+                  label="Email"
+                  onInput={(email: string) => setState({ email })}
+                  value={email}
+                />
+              </FadeInBox>
+              <FadeInBox mt="2">
+                <Textfield
+                  className={cx('Login-username flex-1')}
+                  inputProps={{ required: true }}
+                  label="Password"
+                  onInput={(password: string) => setState({ password })}
+                  type="password"
+                  value={password}
+                />
+              </FadeInBox>
+              <FadeInBox mt="6">
+                <Button className={cx('Login-submit')} flex="1" type="submit" loading={loading}>
+                  Sign in
+                </Button>
+              </FadeInBox>
+              <FadeInBox mt="2">
+                <Text display="block" center size="xs" flex="1">
+                  Dont have an account?
+                  <Button inline h="auto" w="auto" ripple={false} onClick={() => setLogin(false)}>
+                    Create Account
+                  </Button>
+                </Text>
+              </FadeInBox>
 
-          {error && (
-            <Text display="block" color="error" center mt="2" size="xs">
-              Failed to login. Please try again !
-            </Text>
+              {error && (
+                <Text display="block" color="error" center mt="2" size="xs">
+                  Failed to login. Please try again !
+                </Text>
+              )}
+            </FadeContainer>
           )}
-        </FadeContainer>
+        </PoseGroup>
       )}
     </Mutation>
   )

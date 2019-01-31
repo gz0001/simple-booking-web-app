@@ -39,8 +39,12 @@ export const Auth: React.FunctionComponent<AuthProps> = ({}) => {
     <Container className={cx('Auth')} fluid items="center" py="10">
       <Row justify="center">
         <Col className="Auth-form" cols="10, md:6, lg:5">
-          <PoseGroup preEnterPose="preEnter" enterAfterExit={true}>
-            <FadeBox className="w-full flex flex-col bg-box px-12 py-6" key="form">
+          <PoseGroup preEnterPose="preEnter" animateOnMount={true}>
+            <FadeBox
+              className="w-full flex flex-col bg-box px-12 py-6"
+              key="form"
+              withParent={false}
+            >
               <Box className="Auth-header" justify="center" items="center">
                 <img alt="logo" className="Auth-logo w-12" src={logo} />
                 <Headline level="1" ml="4">
@@ -48,7 +52,8 @@ export const Auth: React.FunctionComponent<AuthProps> = ({}) => {
                 </Headline>
               </Box>
               <Hr my="6" />
-              {isLogin ? <Login setLogin={setLogin} /> : <Register setLogin={setLogin} />}
+              <Login setLogin={setLogin} isLogin={isLogin} />{' '}
+              <Register setLogin={setLogin} isLogin={isLogin} />
             </FadeBox>
           </PoseGroup>
         </Col>
