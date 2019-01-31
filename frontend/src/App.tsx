@@ -3,10 +3,11 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import gql from 'graphql-tag'
 import { Box } from 'tt-react-ui-2'
 import posed, { PoseGroup } from 'react-pose'
-import tween from 'popmotion'
+import { tween } from 'popmotion'
 
 // Components:
 import { Loading } from 'atoms/Loading'
+import { Nav } from 'components/Nav'
 
 // Pages:
 import { Auth } from 'pages/Auth'
@@ -23,7 +24,7 @@ const PrivateRoute = (props: any) => {
 
 // Verify token:
 const verifyToken = gql`
-  mutation {
+  mutation Verify{
     verifyToken {
       userId
       token
@@ -35,7 +36,21 @@ const verifyToken = gql`
 // Posed:
 const FadeInBox = posed(AnimatedBox)({
   preEnter: { opacity: 0 },
-  enter: { opacity: 1, beforeChildren: true }
+  enter: {
+    opacity: 1,
+    beforeChildren: true,
+    transition: props => {
+      console.log('enter: ', props)
+      return tween(props)
+    }
+  },
+  exit: {
+    opacity: 0,
+    transition: props => {
+      console.log('exit: ', props)
+      return tween(props)
+    }
+  }
 })
 
 export default class App extends Component<any, any> {
@@ -98,6 +113,7 @@ export default class App extends Component<any, any> {
         ) : (
           <PoseGroup preEnterPose="preEnter" animateOnMount>
             <FadeInBox className="App-content" key="app-content">
+              {isAuth && <Nav />}
               <Switch>
                 <Redirect from="/" to="/start" exact />
                 <Route auth={isAuth} path="/start" render={() => (isAuth ? <Event /> : <Auth />)} />

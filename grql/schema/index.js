@@ -21,8 +21,8 @@ module.exports = buildSchema(`
     lastname: String!
     city: String!
     age: Int!
-    createdEvents(option: Option = {}): [Event!]
-    bookings(option: Option = {}): [Booking!]
+    createdEvents(option: Option): [Event!]
+    bookings(option: Option): [Booking!]
     pic: String
   }
 
@@ -51,7 +51,7 @@ module.exports = buildSchema(`
     date: String!
     dateEnd: String
     creator: User!
-    bookings(option: Option = {}): [Booking!]
+    bookings(option: Option): [Booking!]
     location: Location!
     max: Int!
     status: String!
@@ -83,15 +83,15 @@ module.exports = buildSchema(`
     filter: JSON 
     limit: Int = 0
     skip: Int = 0
-    sort: JSON = {}
+    sort: JSON
   }
 
   # =================== Root ===================
   type RootQuery {
-    users(option: Option = {}): [User!]
+    users(option: Option): [User!]
     user(name: String): User
-    events(option: Option = {}): [Event!]!
-    bookings(option: Option = {}): [Booking!]!
+    events(option: Option): [Event!]!
+    bookings(option: Option): [Booking!]!
   }
 
   type RootMutation {

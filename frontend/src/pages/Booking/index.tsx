@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import { Query } from "react-apollo";
-import { Link } from "react-router-dom";
-import gql from "graphql-tag";
+import React, { Component } from 'react'
+import { Query } from 'react-apollo'
+import { Link } from 'react-router-dom'
+import gql from 'graphql-tag'
 
 // Styles:
 //import "./style.css";
 
 const bookings = gql`
-  {
+  query Bookings {
     bookings {
       event {
         title
@@ -18,16 +18,16 @@ const bookings = gql`
       }
     }
   }
-`;
+`
 
 const user = gql`
-  {
+  query Users {
     users {
       email
       password
     }
   }
-`;
+`
 
 const query = gql`
   query getAuth {
@@ -37,7 +37,15 @@ const query = gql`
       isAuth
     }
   }
-`;
+`
+
+const userQL = gql`
+  query User {
+    user(name: "sacsac") {
+      _id
+    }
+  }
+`
 
 class Booking extends Component {
   render() {
@@ -45,19 +53,19 @@ class Booking extends Component {
       <Query query={user} notifyOnNetworkStatusChange>
         {({ loading, error, data, refetch, networkStatus, client }) => {
           //console.log("booking: ", client.readQuery({ query }));
-          if (networkStatus === 4) return "Refetching!";
-          if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error :(</p>;
-          console.log("got data: ", data);
+          if (networkStatus === 4) return 'Refetching!'
+          if (loading) return <p>Loading...</p>
+          if (error) return <p>Error :(</p>
+          console.log('got data: ', data)
           return (
             <div>
               got data <Link to="/event">go to event</Link>
             </div>
-          );
+          )
         }}
       </Query>
-    );
+    )
   }
 }
 
-export default Booking;
+export default Booking

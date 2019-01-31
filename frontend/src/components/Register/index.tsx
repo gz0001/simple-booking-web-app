@@ -100,7 +100,7 @@ export const Register: React.FunctionComponent<RegisterProps> = ({ setLogin }) =
 
   // Handlers:
 
-  const validateForm = () => {
+  const validateForm = e => {
     const passwordRegex = new RegExp(
       '(?=^.{8,}$)(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9]).*'
     )
@@ -114,11 +114,13 @@ export const Register: React.FunctionComponent<RegisterProps> = ({ setLogin }) =
       case password !== passwordRepeat:
         message = 'Please repeat your password correct !'
         value = false
+        e.preventDefault()
         break
       case !password.match(passwordRegex):
         message =
           'Your password must contain 8 or more characters with a mix of normal letters, capital letters, numbers and symbols !'
         value = false
+        e.preventDefault()
         break
       default:
         break
@@ -128,10 +130,10 @@ export const Register: React.FunctionComponent<RegisterProps> = ({ setLogin }) =
   }
 
   const handleRegister = async (mutate, client, e) => {
-    const valid = validateForm()
+    const valid = validateForm(e)
     setState({ valid })
 
-    if (valid.value) {
+    if (valid.value === true) {
       e.preventDefault()
       try {
         const result = await mutate()

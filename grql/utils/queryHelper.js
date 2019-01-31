@@ -1,4 +1,4 @@
-module.exports = (schema, option, query) => {
+module.exports = (schema, option = {}, query) => {
   console.log("option: ", JSON.stringify(option));
 
   const { filter, limit, skip, sort } = option;
