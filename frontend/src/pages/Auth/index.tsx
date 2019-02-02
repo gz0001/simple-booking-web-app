@@ -3,6 +3,7 @@ import cx from 'classnames'
 import { Link } from 'react-router-dom'
 import { Box, Headline, Container, Row, Col, Button } from 'tt-react-ui-2'
 import posed, { PoseGroup } from 'react-pose'
+import { tween } from 'popmotion'
 
 // Components:
 import { AnimatedBox } from 'atoms/AnimatedBox'
@@ -25,7 +26,10 @@ const FadeBox = posed(AnimatedBox)({
   enter: {
     opacity: 1,
     y: '0',
-    duration: 100
+    duration: 100,
+    transition: props => {
+      return tween(props)
+    }
   }
 })
 
@@ -38,7 +42,7 @@ export const Auth: React.FunctionComponent<AuthProps> = ({}) => {
   return (
     <Container className={cx('Auth')} fluid items="center" py="10">
       <Row justify="center">
-        <Col className="Auth-form" cols="10, md:6, lg:5">
+        <Col className="Auth-form" width="10, md:6, lg:5">
           <PoseGroup preEnterPose="preEnter" animateOnMount={true}>
             <FadeBox
               className="w-full flex flex-col bg-box px-12 py-6"

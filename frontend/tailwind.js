@@ -943,10 +943,6 @@ module.exports = {
     }),
     require('tailwindcss-layout')({
       variants: ['responsive'],
-      offset: {
-        full: '100%',
-        '1/2': '50%'
-      },
       flexGrow: {
         '2': '2',
         '3': '3'
@@ -965,9 +961,42 @@ module.exports = {
       offset: {
         '2': '2rem',
         '4': '4rem',
-        '1/2': '50%'
+        '1/2': '50%',
+        full: '100%'
       }
-    })
+    }),
+    function({ addUtilities, addComponents, e, prefix, config }) {
+      const basis = {
+        default: '100%',
+        auto: 'auto',
+        '1': '8.33333%',
+        '2': '16.66667%',
+        '3': '25%',
+        '4': '33.33333%',
+        '5': '41.66667%',
+        '6': '50%',
+        '7': '58.33333%',
+        '8': '66.66667%',
+        '9': '75%',
+        '10': '83.33333%',
+        '11': '91.66667%',
+        '12': '100%'
+      }
+
+      const basisUtilities = {}
+
+      for (const key in basis) {
+        basisUtilities[`.basis-${key}`] = {
+          flex: key === 'default' ? '1 0 0%' : `0 0 ${basis[key]}`,
+          'max-width': key === 'auto' ? '100%' : basis[key]
+        }
+        if (key === 'auto') {
+          basisUtilities[`.basis-${key}`].width = 'auto'
+        }
+      }
+
+      addUtilities(basisUtilities, ['responsive'])
+    }
   ],
 
   /*

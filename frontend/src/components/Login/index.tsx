@@ -30,7 +30,7 @@ const FadeContainer = posed.form({
     opacity: 0
   },
   enter: {
-    staggerChildren: 200,
+    staggerChildren: 50,
     beforeChildren: true,
     opacity: 1,
     y: '0',
@@ -134,9 +134,15 @@ export const Login: React.FunctionComponent<LoginProps> = ({ setLogin, isLogin }
               <FadeInBox mt="2">
                 <Text display="block" center size="xs" flex="1">
                   Dont have an account?
-                  <Button inline h="auto" w="auto" ripple={false} onClick={() => setLogin(false)}>
+                  <Text
+                    color="first"
+                    cursor="hover:pointer"
+                    underline="hover"
+                    p="2"
+                    textProps={{ onClick: () => setLogin(false) }}
+                  >
                     Create Account
-                  </Button>
+                  </Text>
                 </Text>
               </FadeInBox>
 

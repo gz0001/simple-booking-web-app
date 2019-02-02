@@ -3,7 +3,7 @@ import cx from 'classnames'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import posed, { PoseGroup } from 'react-pose'
-import { tween, spring } from 'popmotion'
+import { tween } from 'popmotion'
 import { Box, Headline, Text, createState } from 'tt-react-ui-2'
 
 // Components:
@@ -248,9 +248,15 @@ export const Register: React.FunctionComponent<RegisterProps> = ({ setLogin, isL
                 <FadeInBox mt="2">
                   <Text display="block" center size="xs" flex="1">
                     Already have an account?
-                    <Button inline h="auto" w="auto" ripple={false} onClick={() => setLogin(true)}>
+                    <Text
+                      color="first"
+                      cursor="hover:pointer"
+                      underline="hover"
+                      p="2"
+                      textProps={{ onClick: () => setLogin(true) }}
+                    >
                       Sign in
-                    </Button>
+                    </Text>
                   </Text>
                 </FadeInBox>
 

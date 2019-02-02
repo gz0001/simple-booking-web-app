@@ -36,20 +36,20 @@ class StyleGuide extends Component<any, any> {
         </Dialog>
         <Container fluid>
           <Row>
-            <Col cols="3">
+            <Col width="3">
               <Button onClick={this.handleClick}>Style here</Button>
             </Col>
-            <Col cols="3">
+            <Col width="3">
               <Button onClick={() => this.setState({ open: true })} bg="second">
                 Style here dia
               </Button>
             </Col>
-            <Col cols="3">
+            <Col width="3">
               <Button onClick={() => console.log('click')} bg="third">
                 Style here
               </Button>
             </Col>
-            <Col cols="3">
+            <Col width="3">
               <Button onClick={() => console.log(this.props)} bg="fourth">
                 Style here
               </Button>
