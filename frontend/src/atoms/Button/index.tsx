@@ -10,5 +10,6 @@ export const Button: React.FunctionComponent<ButtonProps> = props => {
 Button.defaultProps = {
   h: '12',
   p: '2',
-  rounded: 'sm',
+  ripple: true,
+  rounded: 'sm'
 }

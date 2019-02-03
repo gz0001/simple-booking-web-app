@@ -24,7 +24,7 @@ const PrivateRoute = (props: any) => {
 
 // Verify token:
 const verifyToken = gql`
-  mutation Verify{
+  mutation Verify {
     verifyToken {
       userId
       token
@@ -119,7 +119,10 @@ export default class App extends Component<any, any> {
                 <Route auth={isAuth} path="/start" render={() => (isAuth ? <Event /> : <Auth />)} />
                 <Route path="/style" render={() => <StyleGuide client={client} />} />
                 <PrivateRoute auth={isAuth} path="/booking" component={Booking} />
-                <Route render={() => <h1 className="text-center">404. Page not founded</h1>} />
+                <PrivateRoute
+                  auth={isAuth}
+                  render={() => <h1 className="text-center">404. Page not founded</h1>}
+                />
               </Switch>
             </FadeInBox>
           </PoseGroup>

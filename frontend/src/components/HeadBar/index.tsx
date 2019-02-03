@@ -19,8 +19,8 @@ export const HeadBar: React.FunctionComponent<HeadBarProps> = ({}) => {
 
   return (
     <Box className={cx('HeadBar')} position="absolute" h="16" px="6" items="center">
-      <Icon className={cx('HeadBar-arrow')} name="back" pr="4"></Icon>
-      <Icon className={cx('HeadBar-arrow')} name="right-arrow" pr="4"></Icon>
+      <Icon className={cx('HeadBar-arrow')} name="chevron-left" pr="4"></Icon>
+      <Icon className={cx('HeadBar-arrow')} name="chevron-right" pr="4"></Icon>
 
     </Box>
   )

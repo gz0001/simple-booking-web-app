@@ -44,15 +44,15 @@ export const Nav: React.FunctionComponent<NavProps> = ({}) => {
         <Box className="Nav" w="16" h="screen" flex="col" items="center">
           <img className="Nav-logo pt-4" src={logo} />
           <Hr className="Nav-hr" my="4" />
-          <NavItem to="start" icon="language" label="home" />
-          <NavItem to="booking" icon="keywords" label="home" />
-          <NavItem to="user" icon="private" label="home" />
+          <NavItem to="start" icon="home" label="Home" />
+          <NavItem to="booking" icon="ticket" label="Booking" />
+          <NavItem to="user" icon="user-circle" label="User" />
 
           <Hr className="Nav-hr" mt="auto" />
           <Icon
             className="NavItem-icon hover:cursor-pointer"
             color="first"
-            name={'back'}
+            name="sign-out"
             size="lg"
             py="4"
             textProps={{
