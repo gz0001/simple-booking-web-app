@@ -20,8 +20,8 @@ a {
 }
 
 .page {
-  width: 100%;
-  min-height: 100vh;
+  width: calc(100vw - 4rem);
+  
 }
 
 .App-load {

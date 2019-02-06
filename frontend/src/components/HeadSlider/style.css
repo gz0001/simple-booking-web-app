@@ -1,0 +1,7 @@
+.HeadSlider {
+  height: 15rem;
+
+  &-item {
+    height: 15rem;
+  }
+}

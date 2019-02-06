@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import { Link } from 'react-router-dom'
 import gql from 'graphql-tag'
+import { Box } from 'tt-react-ui-2'
 
 // Styles:
 //import "./style.css";
@@ -58,9 +59,9 @@ class Booking extends Component {
           if (error) return <p>Error :(</p>
           console.log('got data: ', data)
           return (
-            <div>
+            <Box className="Booking">
               got data <Link to="/event">go to event</Link>
-            </div>
+            </Box>
           )
         }}
       </Query>

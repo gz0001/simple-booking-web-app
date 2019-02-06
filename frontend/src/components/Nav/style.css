@@ -9,7 +9,7 @@
   }
 
   &Item {
-    border-right-color: transparent;
+    border-right: 4px solid transparent;
     transition: border-right-color 0.3s;
 
     &.active {

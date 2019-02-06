@@ -4,13 +4,15 @@ const Event = require("models/event");
 const Booking = require("models/booking");
 
 // Utils:
+const ServerError = require("utils/error");
 const { getUser, getEvent, getEvents, eventQL } = require("grql/utils");
 const queryHelper = require("grql/utils/queryHelper");
 
 //=========================================================================================
 
 module.exports = {
-  events: async ({ option }) => {
+  events: async ({ option }, req) => {
+    if (!req.isAuth) throw new ServerError("Unauthenticated", 401);
     try {
       const events = await queryHelper(Event, option);
       return events.map(event => eventQL(event));
@@ -20,7 +22,7 @@ module.exports = {
     }
   },
   createEvent: async (args, req) => {
-    if (!req.isAuth) throw new Error("Unauthenticated");
+    if (!req.isAuth) throw new ServerError("Unauthenticated", 401);
     const {
       title,
       description,

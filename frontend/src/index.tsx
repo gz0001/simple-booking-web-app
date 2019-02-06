@@ -32,6 +32,11 @@ const client = new ApolloClient({
       }
     },
     resolvers: {}
+  },
+  onError: ({ networkError, graphQLErrors }) => {
+    networkError && console.log(networkError)
+
+    console.log('grql error: ', graphQLErrors)
   }
 })
 //client.initQueryManager()

@@ -105,7 +105,7 @@ export default class App extends Component<any, any> {
     console.log('got auth: ', this.props)
 
     return (
-      <Box className="App page">
+      <Box className="App" min-h="screen" overflow="y-auto">
         {loading ? (
           <Box className="App-load" justify="center" items="center" key="load">
             <Loading />
@@ -118,7 +118,7 @@ export default class App extends Component<any, any> {
                 <Redirect from="/" to="/start" exact />
                 <Route auth={isAuth} path="/start" render={() => (isAuth ? <Event /> : <Auth />)} />
                 <Route path="/style" render={() => <StyleGuide client={client} />} />
-                <PrivateRoute auth={isAuth} path="/booking" component={Booking} />
+                <Route auth={isAuth} path="/booking" component={Booking} />
                 <PrivateRoute
                   auth={isAuth}
                   render={() => <h1 className="text-center">404. Page not founded</h1>}

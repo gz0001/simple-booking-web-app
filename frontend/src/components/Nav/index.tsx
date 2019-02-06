@@ -41,7 +41,7 @@ export const Nav: React.FunctionComponent<NavProps> = ({}) => {
   return (
     <ApolloConsumer>
       {client => (
-        <Box className="Nav" w="16" h="screen" flex="col" items="center">
+        <Box className="Nav" w="16" h="screen" flex="col, no-shrink" items="center">
           <img className="Nav-logo pt-4" src={logo} />
           <Hr className="Nav-hr" my="4" />
           <NavItem to="start" icon="home" label="Home" />

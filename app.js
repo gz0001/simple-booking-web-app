@@ -32,7 +32,13 @@ app.use(
   graphqlHttp({
     schema,
     rootValue: rootResolvers,
-    graphiql: true
+    graphiql: true,
+    formatError: error => {
+      return {
+        ...error,
+        code: error.originalError.code && error.originalError.code
+      };
+    }
   })
 );
 
