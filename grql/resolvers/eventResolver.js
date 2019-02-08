@@ -21,6 +21,56 @@ module.exports = {
       throw error;
     }
   },
+  popularEvents: async ({ limit }, req) => {
+    try {
+      const events = await Booking.aggregate([
+        { $match: { status: "booked" } },
+        {
+          $group: {
+            _id: "$event",
+            count: { $sum: 1 }
+          }
+        },
+        {
+          $lookup: {
+            from: "events",
+            localField: "_id",
+            foreignField: "_id",
+            as: "event"
+          }
+        },
+        {
+          $unwind: {
+            path: "$event",
+            preserveNullAndEmptyArrays: true
+          }
+        },
+        {
+          $match: {
+            "event.date": { $lt: new Date("2020-01-01 01:00:00.000") }
+          }
+        },
+        {
+          $sort: { count: -1 }
+        },
+        {
+          $limit: limit
+        },
+        {
+          $project: {
+            event: 1,
+            _id: false
+          }
+        }
+      ]);
+      console.log("got: ", JSON.stringify(events, null, 2));
+
+      return events.map(ev => getEvent(ev.event._id.toString()));
+    } catch (error) {
+      console.log("err: ", error);
+      throw error;
+    }
+  },
   createEvent: async (args, req) => {
     if (!req.isAuth) throw new ServerError("Unauthenticated", 401);
     const {

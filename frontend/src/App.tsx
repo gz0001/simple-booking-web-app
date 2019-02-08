@@ -40,14 +40,12 @@ const FadeInBox = posed(AnimatedBox)({
     opacity: 1,
     beforeChildren: true,
     transition: props => {
-      console.log('enter: ', props)
       return tween(props)
     }
   },
   exit: {
     opacity: 0,
     transition: props => {
-      console.log('exit: ', props)
       return tween(props)
     }
   }
@@ -66,7 +64,6 @@ export default class App extends Component<any, any> {
     if (token) {
       try {
         const result = await client.mutate({ mutation: verifyToken })
-        console.log('token verified: ', result)
         const newToken = result.data.verifyToken.token
 
         localStorage.setItem('token', newToken)
@@ -81,11 +78,7 @@ export default class App extends Component<any, any> {
           }
         })
       } catch (error) {
-        client.writeData({
-          data: {
-            auth: { userId, token, isAuth: false, __typename: 'AuthStatus' }
-          }
-        })
+        console.log("token expired!")
       }
     }
     setTimeout(() => {
@@ -118,7 +111,7 @@ export default class App extends Component<any, any> {
                 <Redirect from="/" to="/start" exact />
                 <Route auth={isAuth} path="/start" render={() => (isAuth ? <Event /> : <Auth />)} />
                 <Route path="/style" render={() => <StyleGuide client={client} />} />
-                <Route auth={isAuth} path="/booking" component={Booking} />
+                <PrivateRoute auth={isAuth} path="/booking" component={Booking} />
                 <PrivateRoute
                   auth={isAuth}
                   render={() => <h1 className="text-center">404. Page not founded</h1>}

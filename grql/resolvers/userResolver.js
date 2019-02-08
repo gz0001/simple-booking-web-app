@@ -56,10 +56,10 @@ module.exports = {
         { userId: user.id, email: user._doc.email },
         "truong92",
         {
-          expiresIn: "7d"
+          expiresIn: "1d"
         }
       );
-      return { userId: user.id, token, tokenExpiration: "7d" };
+      return { userId: user.id, token, tokenExpiration: "1d" };
     } catch (error) {
       console.log(error);
       throw error;

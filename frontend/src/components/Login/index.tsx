@@ -74,7 +74,6 @@ export const Login: React.FunctionComponent<LoginProps> = ({ setLogin, isLogin }
       e.preventDefault()
       try {
         const result = await mutate()
-        console.log('got res: ', result)
         const { token, userId } = result.data.login
         client.writeData({
           data: {

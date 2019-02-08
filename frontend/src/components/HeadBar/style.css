@@ -5,6 +5,10 @@
 
   .Textfield {
     border-bottom-color: transparent;
+
+    &-input {
+      height: 1.5rem;
+    }
     &-inputWrapper {
       padding: 0!important;
     }

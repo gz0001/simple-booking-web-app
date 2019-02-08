@@ -15,7 +15,6 @@ import App from './App'
 const client = new ApolloClient({
   request: async operation => {
     const token = localStorage.getItem('token')
-    console.log('token: ', token)
     operation.setContext({
       headers: {
         authorization: token ? `Bearer ${token}` : ''
@@ -33,10 +32,21 @@ const client = new ApolloClient({
     },
     resolvers: {}
   },
-  onError: ({ networkError, graphQLErrors }) => {
+  onError: ({ networkError, graphQLErrors, operation, forward, response }) => {
     networkError && console.log(networkError)
-
-    console.log('grql error: ', graphQLErrors)
+    if (graphQLErrors) {
+      for (const error of graphQLErrors) {
+        // @ts-ignore
+        if(error.code && error.code === 401) {
+          // reset auth status to false
+          client.writeData({
+            data: {
+              auth: { userId: null, token: null, isAuth: false, __typename: 'AuthStatus' }
+            }
+          })
+        }
+      }
+    }
   }
 })
 //client.initQueryManager()

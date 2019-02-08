@@ -89,8 +89,8 @@ module.exports = buildSchema(`
   # =================== Root ===================
   type RootQuery {
     users(option: Option): [User!]
-    user(name: String): User
     events(option: Option): [Event!]!
+    popularEvents(limit: Int = 5): [Event!]
     bookings(option: Option): [Booking!]!
   }
 

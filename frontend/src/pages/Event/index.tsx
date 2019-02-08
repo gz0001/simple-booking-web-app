@@ -10,9 +10,9 @@ import { HeadSlider } from 'components/HeadSlider'
 // Styles:
 //import "./style.css";
 
-// Query AuthStatus:
+// Query:
 const authStatus = gql`
-  query getAuth {
+  query getEvents {
     auth @client {
       userId
       token
@@ -25,8 +25,6 @@ const Event: React.FunctionComponent<any> = () => {
   // Hooks:
   const slider = React.useRef(null)
 
-  console.log('mess: ', slider)
-
   // Handlers:
   const handleSlide = (next: boolean) => {
     if (slider.current) {
@@ -36,9 +34,9 @@ const Event: React.FunctionComponent<any> = () => {
 
   return (
     <Query query={authStatus}>
-      {({ data }) => {
+      {({ data, client }) => {
         return (
-          <Box className="Event page">
+          <Box className="Event page" display="block">
             <HeadBar onSlide={handleSlide} />
             <HeadSlider ref={slider} />
           </Box>

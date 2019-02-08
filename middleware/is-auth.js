@@ -1,9 +1,13 @@
 const jwt = require("jsonwebtoken");
 
+// Utils:
+const ServerError = require("utils/error");
+
 module.exports = async (req, res, next) => {
   console.log("Got a request");
   // get auth header and verify
   const authHeader = req.get("Authorization");
+
   if (!authHeader) {
     req.isAuth = false;
     return next();
