@@ -1,3 +1,5 @@
+const ObjectId = require("mongoose").Types.ObjectId;
+
 // Models:
 const User = require("models/user");
 const Event = require("models/event");
@@ -13,6 +15,7 @@ const queryHelper = require("grql/utils/queryHelper");
 module.exports = {
   events: async ({ option }, req) => {
     if (!req.isAuth) throw new ServerError("Unauthenticated", 401);
+
     try {
       const events = await queryHelper(Event, option);
       return events.map(event => eventQL(event));
@@ -22,50 +25,42 @@ module.exports = {
     }
   },
   popularEvents: async ({ limit }, req) => {
+    if (!req.isAuth) throw new ServerError("Unauthenticated", 401);
+    const { userId } = req;
+
     try {
-      const events = await Booking.aggregate([
-        { $match: { status: "booked" } },
+      const events = await Event.aggregate([
         {
-          $group: {
-            _id: "$event",
-            count: { $sum: 1 }
-          }
-        },
-        {
-          $lookup: {
-            from: "events",
-            localField: "_id",
-            foreignField: "_id",
-            as: "event"
+          $match: {
+            creator: { $ne: new ObjectId(userId) },
+            date: { $gt: new Date() }
           }
         },
         {
           $unwind: {
-            path: "$event",
+            path: "$bookings",
             preserveNullAndEmptyArrays: true
           }
         },
         {
-          $match: {
-            "event.date": { $lt: new Date("2020-01-01 01:00:00.000") }
+          $group: {
+            _id: "$_id",
+            count: {
+              $sum: 1
+            }
           }
         },
         {
-          $sort: { count: -1 }
+          $sort: {
+            count: -1
+          }
         },
         {
           $limit: limit
-        },
-        {
-          $project: {
-            event: 1,
-            _id: false
-          }
         }
       ]);
-      console.log("got: ", JSON.stringify(events, null, 2));
 
-      return events.map(ev => getEvent(ev.event._id.toString()));
+      return events.map(ev => getEvent(ev._id.toString()));
     } catch (error) {
       console.log("err: ", error);
       throw error;
