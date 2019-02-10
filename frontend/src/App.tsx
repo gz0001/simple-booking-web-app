@@ -35,24 +35,6 @@ const PrivateRoute = (props: any) => {
   return auth ? <Route {...restProps} /> : <Redirect to={`/start`} />
 }
 
-// Posed:
-const FadeInBox = posed(AnimatedBox)({
-  preEnter: { opacity: 0 },
-  enter: {
-    opacity: 1,
-    beforeChildren: true,
-    transition: props => {
-      return tween(props)
-    }
-  },
-  exit: {
-    opacity: 0,
-    transition: props => {
-      return tween(props)
-    }
-  }
-})
-
 export default class App extends Component<any, any> {
   state = {
     loading: true
@@ -101,21 +83,19 @@ export default class App extends Component<any, any> {
             <Loading />
           </Box>
         ) : (
-          <PoseGroup preEnterPose="preEnter" animateOnMount>
-            <FadeInBox className="App-content" key="app-content">
-              {isAuth && <Nav />}
-              <Switch>
-                <Redirect from="/" to="/start" exact />
-                <Route auth={isAuth} path="/start" render={() => (isAuth ? <Event /> : <Auth />)} />
-                <Route path="/style" render={() => <StyleGuide client={client} />} />
-                <PrivateRoute auth={isAuth} path="/booking" component={Booking} />
-                <PrivateRoute
-                  auth={isAuth}
-                  render={() => <h1 className="text-center">404. Page not founded</h1>}
-                />
-              </Switch>
-            </FadeInBox>
-          </PoseGroup>
+          <>
+            {isAuth && <Nav />}
+            <Switch>
+              <Redirect from="/" to="/start" exact />
+              <Route auth={isAuth} path="/start" render={() => (isAuth ? <Event /> : <Auth />)} />
+              <Route path="/style" render={() => <StyleGuide client={client} />} />
+              <PrivateRoute auth={isAuth} path="/booking" component={Booking} />
+              <PrivateRoute
+                auth={isAuth}
+                render={() => <h1 className="text-center">404. Page not founded</h1>}
+              />
+            </Switch>
+          </>
         )}
       </Box>
     )

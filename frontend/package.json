@@ -6,18 +6,18 @@
     "@craco/craco": "^3.4.1",
     "@types/graphql": "^14.0.5",
     "@types/jest": "^24.0.0",
-    "@types/node": "^10.12.21",
-    "@types/react": "^16.8.1",
-    "@types/react-dom": "^16.0.11",
+    "@types/node": "^10.12.24",
+    "@types/react": "^16.8.2",
+    "@types/react-dom": "^16.8.0",
     "apollo-boost": "^0.1.27",
     "axios": "^0.18.0",
     "date-fns": "^1.30.1",
     "graphql": "^14.1.1",
     "graphql-tag": "^2.10.1",
     "popmotion": "^8.6.2",
-    "react": "16.8.0",
+    "react": "16.8.1",
     "react-apollo": "^2.4.1",
-    "react-dom": "16.8.0",
+    "react-dom": "16.8.1",
     "react-pose": "^4.0.6",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.3",
@@ -25,13 +25,14 @@
     "slick-carousel": "^1.8.1",
     "tailwindcss": "^0.7.4",
     "tt-react-ui-2": "0.0.17",
-    "typescript": "^3.3.1"
+    "typescript": "^3.3.3"
   },
   "scripts": {
     "start": "craco start --config craco.config.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "codegen": "apollo client:codegen --target=typescript --outputFlat=src/types/gql-type.ts"
   },
   "eslintConfig": {
     "extends": "react-app"

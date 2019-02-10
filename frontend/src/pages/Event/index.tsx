@@ -11,6 +11,8 @@ import { HeadSlider } from 'components/HeadSlider'
 //import "./style.css";
 
 // Query:
+import { previewQuery, setEventOption } from 'gql/eventQL'
+
 const authStatus = gql`
   query GetEvents {
     popularEvents {
@@ -21,6 +23,8 @@ const authStatus = gql`
 `
 
 const Event: React.FunctionComponent<any> = () => {
+  // Filter:
+
   // Hooks:
   const slider = React.useRef(null)
 
@@ -32,8 +36,10 @@ const Event: React.FunctionComponent<any> = () => {
   }
 
   return (
-    <Query query={authStatus}>
-      {({ data, client }) => {
+    <Query query={previewQuery} variables={{ option: setEventOption(null, null, 5) }}>
+      {({ data, loading, error, client }) => {
+        !loading && console.log('got preview: ', data)
+
         return (
           <Box className="Event page" display="block">
             <HeadBar onSlide={handleSlide} />
