@@ -1,0 +1,14 @@
+type AuthStatus {
+  userId: String
+  token: String
+  isAuth: Boolean
+}
+
+
+extend type RootQuery {
+  auth: AuthStatus!
+}
+
+extend type RootMutation {
+  setAuth(userId: String, token: String, isAuth: Boolean!): AuthStatus 
+}

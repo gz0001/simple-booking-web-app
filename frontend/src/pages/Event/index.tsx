@@ -12,11 +12,10 @@ import { HeadSlider } from 'components/HeadSlider'
 
 // Query:
 const authStatus = gql`
-  query getEvents {
-    auth @client {
-      userId
-      token
-      isAuth
+  query GetEvents {
+    popularEvents {
+      _id
+      title
     }
   }
 `

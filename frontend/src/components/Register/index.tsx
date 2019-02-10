@@ -15,6 +15,7 @@ import { AnimatedBox } from 'atoms/AnimatedBox'
 import './style.css'
 
 // Mutations:
+import  {setAuthMutation } from 'resolvers/authResolver'
 const registerQL = gql`
   mutation Register(
     $email: String!
@@ -138,12 +139,10 @@ export const Register: React.FunctionComponent<RegisterProps> = ({ setLogin, isL
       e.preventDefault()
       try {
         const result = await mutate()
-        console.log('got res: ', result)
         const { token, userId } = result.data.createUser
-        client.writeData({
-          data: {
-            auth: { userId, token, isAuth: true, __typename: 'AuthStatus' }
-          }
+        client.mutate({
+          mutation: setAuthMutation,
+          variables: { userId, token, isAuth: true }
         })
         localStorage.setItem('token', token)
         localStorage.setItem('userId', userId)

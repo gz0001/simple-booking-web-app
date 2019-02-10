@@ -3,13 +3,21 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider, Query } from 'react-apollo'
-import gql from 'graphql-tag'
 
+// Styles:
 import '../node_modules/slick-carousel/slick/slick.css'
 import '../node_modules/slick-carousel/slick/slick-theme.css'
 import '../node_modules/tt-react-ui-2/build/index.css'
 import './style.css'
+
+// App:
 import App from './App'
+
+// State Resolvers:
+import { defaults, resolvers } from 'resolvers'
+
+// Client State gql:
+import { authQuery, setAuthMutation } from 'resolvers/authResolver'
 
 // Client:
 const client = new ApolloClient({
@@ -22,27 +30,20 @@ const client = new ApolloClient({
     })
   },
   clientState: {
-    defaults: {
-      auth: {
-        userId: null,
-        token: null,
-        isAuth: false,
-        __typename: 'AuthStatus'
-      }
-    },
-    resolvers: {}
+    defaults,
+    resolvers
   },
   onError: ({ networkError, graphQLErrors, operation, forward, response }) => {
     networkError && console.log(networkError)
     if (graphQLErrors) {
       for (const error of graphQLErrors) {
+        console.log(graphQLErrors)
         // @ts-ignore
-        if(error.code && error.code === 401) {
+        if (error.code && error.code === 401) {
           // reset auth status to false
-          client.writeData({
-            data: {
-              auth: { userId: null, token: null, isAuth: false, __typename: 'AuthStatus' }
-            }
+          client.mutate({
+            mutation: setAuthMutation,
+            variables: { userId: null, token: null, isAuth: false }
           })
         }
       }
@@ -51,21 +52,10 @@ const client = new ApolloClient({
 })
 //client.initQueryManager()
 
-// Query AuthStatus:
-const authStatus = gql`
-  query getAuth {
-    auth @client {
-      userId
-      token
-      isAuth
-    }
-  }
-`
-
 ReactDOM.render(
   <ApolloProvider client={client}>
     <BrowserRouter>
-      <Query query={authStatus}>{({ data, client }) => <App data={data} client={client} />}</Query>
+      <Query query={authQuery}>{({ data, client }) => <App data={data} client={client} />}</Query>
     </BrowserRouter>
   </ApolloProvider>,
   document.getElementById('root')

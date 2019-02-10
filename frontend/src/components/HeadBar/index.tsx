@@ -49,7 +49,7 @@ export const HeadBar: React.FunctionComponent<HeadBarProps> = ({ onSlide }) => {
         />
         <Icon
           border="l-1"
-          className={cx('HeadBar-search transition')}
+          className={cx('HeadBar-search')}
           color="hover:first"
           cursor="hover:pointer"
           display="flex"

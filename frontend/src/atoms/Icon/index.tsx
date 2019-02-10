@@ -10,7 +10,7 @@ export interface IconProps extends TextProps {
 
 export const Icon: React.FunctionComponent<IconProps> = props => {
   const { className, name, ...rest } = props
-  return <Text {...rest} className={cx(className && className, `Icon icon-${name}`)} />
+  return <Text {...rest} className={cx(className && className, `Icon icon-${name} transition`)} />
 }
 
 Icon.defaultProps = {

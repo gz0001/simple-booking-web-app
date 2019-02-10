@@ -16,13 +16,9 @@ import Event from './pages/Event'
 import StyleGuide from 'pages/StyleGuide'
 import { AnimatedBox } from 'atoms/AnimatedBox'
 
-// Private Route:
-const PrivateRoute = (props: any) => {
-  const { auth, ...restProps } = props
-  return auth ? <Route {...restProps} /> : <Redirect to={`/start`} />
-}
+// GQL:
+import { setAuthMutation } from 'resolvers/authResolver'
 
-// Verify token:
 const verifyToken = gql`
   mutation Verify {
     verifyToken {
@@ -32,6 +28,12 @@ const verifyToken = gql`
     }
   }
 `
+
+// Private Route:
+const PrivateRoute = (props: any) => {
+  const { auth, ...restProps } = props
+  return auth ? <Route {...restProps} /> : <Redirect to={`/start`} />
+}
 
 // Posed:
 const FadeInBox = posed(AnimatedBox)({
@@ -67,23 +69,18 @@ export default class App extends Component<any, any> {
         const newToken = result.data.verifyToken.token
 
         localStorage.setItem('token', newToken)
-        client.writeData({
-          data: {
-            auth: {
-              userId,
-              token: newToken,
-              isAuth: true,
-              __typename: 'AuthStatus'
-            }
-          }
+
+        client.mutate({
+          mutation: setAuthMutation,
+          variables: { userId, token, isAuth: true }
         })
       } catch (error) {
-        console.log("token expired!")
+        console.log('token expired!')
       }
     }
     setTimeout(() => {
       this.setState({ loading: false })
-    }, 500)
+    }, 1000)
   }
 
   render() {
