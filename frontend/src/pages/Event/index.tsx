@@ -10,6 +10,9 @@ import { HeadSlider } from 'components/HeadSlider'
 // Styles:
 //import "./style.css";
 
+// Types:
+import { EventPreview } from 'types/gql-type';
+
 // Query:
 import { previewQuery, setEventOption } from 'gql/eventQL'
 
@@ -37,13 +40,14 @@ const Event: React.FunctionComponent<any> = () => {
 
   return (
     <Query query={previewQuery} variables={{ option: setEventOption(null, null, 5) }}>
-      {({ data, loading, error, client }) => {
-        !loading && console.log('got preview: ', data)
+      {({ data : {popularEvents}, loading, error, client }) => {
+        if(loading) return "Loading..."
+        if(error) return "Error :("
 
         return (
           <Box className="Event page" display="block">
             <HeadBar onSlide={handleSlide} />
-            <HeadSlider ref={slider} />
+            <HeadSlider ref={slider} eventPreviews={popularEvents}/>
           </Box>
         )
       }}

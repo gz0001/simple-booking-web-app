@@ -2,6 +2,7 @@ import gql from 'graphql-tag'
 
 const previewFragment = gql`
   fragment EventPreview on Event {
+    _id
     title
     description
     date

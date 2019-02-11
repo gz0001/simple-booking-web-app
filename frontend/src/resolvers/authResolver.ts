@@ -35,7 +35,6 @@ export const authDefaults = {
 export const authResolvers = {
   setAuth: (_, { userId = null, token = null, isAuth = false }, { cache }) => {
     const auth = { userId, token, isAuth, __typename: 'AuthStatus' }
-    console.log('set Auth', auth);
     cache.writeData({data: {auth}})
     return auth
   }

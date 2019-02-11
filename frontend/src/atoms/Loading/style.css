@@ -8,16 +8,14 @@
   transform-origin: center;
   stroke: var(--first);
   animation: dash-animation 1.5s ease-in-out infinite;
-    }
-
-
+}
 
 @keyframes rotation {
   from {
-    transform: rotate( 0deg );
+    transform: rotate( 0deg);
   }
   to {
-    transform: rotate( 360deg );
+    transform: rotate( 360deg);
   }
 }
 
@@ -25,14 +23,12 @@
   0% {
     stroke-dashoffset: 187;
   }
-  
   50% {
     stroke-dashoffset: 10;
-    transform: rotate( 20deg );
+    transform: rotate( 20deg);
   }
-  
   100% {
     stroke-dashoffset: 187;
-    transform: rotate( 360deg );
+    transform: rotate( 360deg);
   }
 }

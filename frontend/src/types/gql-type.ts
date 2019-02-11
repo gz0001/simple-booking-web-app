@@ -92,6 +92,7 @@ export interface GetPreview_events_bookings {
 
 export interface GetPreview_events {
   __typename: "Event";
+  _id: string;
   title: string;
   description: string;
   date: string;
@@ -119,6 +120,7 @@ export interface GetPreview_popularEvents_bookings {
 
 export interface GetPreview_popularEvents {
   __typename: "Event";
+  _id: string;
   title: string;
   description: string;
   date: string;
@@ -270,6 +272,7 @@ export interface EventPreview_bookings {
 
 export interface EventPreview {
   __typename: "Event";
+  _id: string;
   title: string;
   description: string;
   date: string;
