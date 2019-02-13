@@ -10,6 +10,7 @@ export interface LinkProps extends TextProps {
   className?: string
   external?: boolean
   href: string
+  transition?: boolean
   linkProps?: React.HTMLProps<HTMLAnchorElement>
 }
 
@@ -20,6 +21,7 @@ export const Link: React.FunctionComponent<LinkProps> = ({
   href,
   linkProps,
   title,
+  transition,
   ...rest
 }) => {
   const Tag = external ? 'a' : RouterLink
@@ -27,7 +29,7 @@ export const Link: React.FunctionComponent<LinkProps> = ({
   return (
     // @ts-ignore
     <Tag className={cx(className && className, 'Link')} title={title} {...link} {...linkProps}>
-      <Text {...rest} className="Link-text transition">
+      <Text {...rest} className={cx('Link-text', transition && 'transition')}>
         {children}
       </Text>
     </Tag>
@@ -37,5 +39,6 @@ export const Link: React.FunctionComponent<LinkProps> = ({
 Link.defaultProps = {
   color: 'first',
   external: false,
-  hover: 'second'
+  hover: 'second',
+  transition: true
 }

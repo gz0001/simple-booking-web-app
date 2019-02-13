@@ -84,8 +84,8 @@ export const HeadSlider: React.FunctionComponent<HeadSliderProps> = React.forwar
                     <Text className="HeadSlider__subtitle" paragraph w="1/2" mt="4">
                       {event.description}
                     </Text>
-                    <Link href={`/event/${event._id}`} hover="white"  size="xs">
-                      Read more <Icon color="first" name="arrow-right" size="xs" />
+                    <Link  className="HeadSlider__link" href={`/event/${event._id}`}  size="xs">
+                      Read more <Icon color="first" name="arrow-right" size="xs" transition={false}/>
                     </Link>
                   </Box>
                 </Box>
