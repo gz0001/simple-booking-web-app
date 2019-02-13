@@ -34,9 +34,10 @@ app.use(
     rootValue: rootResolvers,
     graphiql: true,
     formatError: error => {
+      console.log("app err: ", error);
       return {
         ...error,
-        code: error.originalError.code && error.originalError.code
+        code: -1
       };
     }
   })
@@ -45,16 +46,12 @@ app.use(
 // Connect and start server:
 (async () => {
   try {
-    await mongoose.connect(
-      //"mongodb+srv://truong:truong92@mycluster-3i9di.mongodb.net/grql?authSource=admin&retryWrites=true",
-      "mongodb://mongo:27017/grql",
-      {
-        useNewUrlParser: true,
-        socketTimeoutMS: 0,
-        keepAlive: true,
-        reconnectTries: 30
-      }
-    );
+    await mongoose.connect("mongodb://mongo:27017/grql", {
+      useNewUrlParser: true,
+      socketTimeoutMS: 0,
+      keepAlive: true,
+      reconnectTries: 30
+    });
     console.log("Database connected");
     app.listen(1234, () => {
       console.log("Server started at port 1234");

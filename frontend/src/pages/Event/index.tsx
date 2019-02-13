@@ -7,24 +7,13 @@ import { Box } from 'tt-react-ui-2'
 import { HeadBar } from 'components/HeadBar'
 import { HeadSlider } from 'components/HeadSlider'
 import { PreviewSection } from 'components/PreviewSection'
+import { Footer } from 'components/Footer';
 
 // Styles:
 //import "./style.css";
 
-// Types:
-import { EventPreview } from 'types/gql-type';
-
 // Query:
 import { previewQuery, setEventOption } from 'gql/eventQL'
-
-const authStatus = gql`
-  query GetEvents {
-    popularEvents {
-      _id
-      title
-    }
-  }
-`
 
 const Event: React.FunctionComponent<any> = () => {
   // Filter:
@@ -40,15 +29,23 @@ const Event: React.FunctionComponent<any> = () => {
   }
 
   return (
-    <Query query={previewQuery} variables={{ option: setEventOption(null, null, 5) }}>
-      {({ data : {popularEvents}, loading, error, client }) => {
-        if(error) return "Error :("
+    <Query query={previewQuery}>
+      {({ data, loading, error, client }) => {
+        const { popularEvents } = data
+
+        if (error) return 'Error :('
 
         return (
           <Box className="Event page" display="block">
             <HeadBar onSlide={handleSlide} />
-            <HeadSlider ref={slider} eventPreviews={popularEvents} loading={loading}/>
-            <PreviewSection className="PopularSection" eventPreviews={popularEvents} loading={loading} section="Popular"></PreviewSection>
+            <HeadSlider ref={slider} eventPreviews={popularEvents} loading={loading} />
+            <PreviewSection
+              className="PopularSection"
+              eventPreviews={popularEvents}
+              loading={loading}
+              section="Popular"
+            />
+            <Footer/>
           </Box>
         )
       }}

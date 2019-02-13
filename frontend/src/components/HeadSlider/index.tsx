@@ -6,6 +6,8 @@ import { Box, Text, Headline } from 'tt-react-ui-2'
 
 // Components:
 import { Spinner } from 'atoms/Spinner'
+import { Link } from 'atoms/Link'
+import { Icon } from 'atoms/Icon'
 
 // Styles:
 import './style.css'
@@ -44,8 +46,6 @@ export const HeadSlider: React.FunctionComponent<HeadSliderProps> = React.forwar
     // bg images:
     const bgImg = [sl1, sl2, sl3, sl4]
 
-    console.log('preview: ', eventPreviews)
-
     return (
       <Box bg="grey-darker" className={cx('HeadSlider')} display="block">
         {loading ? (
@@ -55,7 +55,7 @@ export const HeadSlider: React.FunctionComponent<HeadSliderProps> = React.forwar
             {eventPreviews.map((event: EventPreview, index: number) => {
               return (
                 <Box
-                  className="HeadSlider-item"
+                  className="HeadSlider__item"
                   bg="cover, center"
                   image={bgImg[index % 4]}
                   key={event._id}
@@ -77,13 +77,16 @@ export const HeadSlider: React.FunctionComponent<HeadSliderProps> = React.forwar
                       className="HeadSlider__title transition"
                       cursor="hover:pointer"
                       font="bold"
-                      text="2xl, hover:first"
+                      text="2xl"
                     >
                       {event.title}
                     </Headline>
                     <Text className="HeadSlider__subtitle" paragraph w="1/2" mt="4">
                       {event.description}
                     </Text>
+                    <Link href={`/event/${event._id}`} hover="white"  size="xs">
+                      Read more <Icon color="first" name="arrow-right" size="xs" />
+                    </Link>
                   </Box>
                 </Box>
               )

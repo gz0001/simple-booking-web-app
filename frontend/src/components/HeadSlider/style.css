@@ -1,7 +1,7 @@
 .HeadSlider {
   height: 15rem;
 
-  &-item {
+  &__item {
     height: 15rem;
 
     &::after {

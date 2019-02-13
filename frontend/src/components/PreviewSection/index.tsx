@@ -47,7 +47,7 @@ export const PreviewSection: React.FunctionComponent<PreviewSectionProps> = ({
           <Row>
             {eventPreviews.map((event, index) => {
               return (
-                <Col width="12, md:6, lg:3" key={event._id} mt="2">
+                <Col width="12, md:6, lg:3" key={event._id} mt="4">
                   <Box className="Preview--item" image={bgImg[index % 4]} h="full">
                     {event.title}
                   </Box>
