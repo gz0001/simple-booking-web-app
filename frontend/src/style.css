@@ -21,11 +21,11 @@ a {
 
 .page {
   width: calc(100vw - 4rem);
+  margin-left: auto
   
 }
 
 .App-load {
   background-color: #222222;
-
   z-index: 100;
 }

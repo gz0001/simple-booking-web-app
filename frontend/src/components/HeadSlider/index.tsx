@@ -2,9 +2,10 @@ import * as React from 'react'
 import cx from 'classnames'
 import Slider from 'react-slick'
 import { format } from 'date-fns'
+import { Box, Text, Headline } from 'tt-react-ui-2'
 
 // Components:
-import { Box, Text, Headline } from 'tt-react-ui-2'
+import { Spinner } from 'atoms/Spinner'
 
 // Styles:
 import './style.css'
@@ -23,10 +24,11 @@ import sl4 from 'assets/images/sl4.jpg'
 export interface HeadSliderProps {
   ref: React.Ref<any>
   eventPreviews: EventPreview[]
+  loading: boolean
 }
 
 export const HeadSlider: React.FunctionComponent<HeadSliderProps> = React.forwardRef(
-  ({ eventPreviews }, ref) => {
+  ({ eventPreviews, loading }, ref) => {
     // slider setting:
     const settings = {
       dots: false,
@@ -46,39 +48,48 @@ export const HeadSlider: React.FunctionComponent<HeadSliderProps> = React.forwar
 
     return (
       <Box bg="grey-darker" className={cx('HeadSlider')} display="block">
-        <Slider className="h-full" {...settings} ref={ref}>
-          {eventPreviews.map((event: EventPreview, index: number) => {
-            return (
-              <Box className="HeadSlider-item" bg="cover, center" image={bgImg[index % 4]} key={event._id}>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <Slider className="h-full" {...settings} ref={ref}>
+            {eventPreviews.map((event: EventPreview, index: number) => {
+              return (
                 <Box
-                  className="HeadSlider__content"
-                  h="full"
-                  px="6"
-                  pb="4"
-                  justify="end"
-                  flex="col"
-                  position="absolute"
-                  z="10"
+                  className="HeadSlider-item"
+                  bg="cover, center"
+                  image={bgImg[index % 4]}
+                  key={event._id}
                 >
-                  <Text className="HeadSlider__date" size="sm">
-                    {format(new Date(event.date), 'MMM DD, YYYY')}
-                  </Text>
-                  <Headline
-                    className="HeadSlider__title transition"
-                    cursor="hover:pointer"
-                    font="bold"
-                    text="2xl, hover:first"
+                  <Box
+                    className="HeadSlider__content"
+                    h="full"
+                    px="10"
+                    pb="4"
+                    justify="end"
+                    flex="col"
+                    position="absolute"
+                    z="10"
                   >
-                    {event.title}
-                  </Headline>
-                  <Text className="HeadSlider__subtitle" paragraph w="1/2" mt="4">
-                    {event.description}
-                  </Text>
+                    <Text className="HeadSlider__date" size="sm">
+                      {format(new Date(event.date), 'MMM DD, YYYY')}
+                    </Text>
+                    <Headline
+                      className="HeadSlider__title transition"
+                      cursor="hover:pointer"
+                      font="bold"
+                      text="2xl, hover:first"
+                    >
+                      {event.title}
+                    </Headline>
+                    <Text className="HeadSlider__subtitle" paragraph w="1/2" mt="4">
+                      {event.description}
+                    </Text>
+                  </Box>
                 </Box>
-              </Box>
-            )
-          })}
-        </Slider>
+              )
+            })}
+          </Slider>
+        )}
       </Box>
     )
   }

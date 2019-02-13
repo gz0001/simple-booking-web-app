@@ -90,7 +90,7 @@ module.exports = buildSchema(`
   type RootQuery {
     users(option: Option): [User!]
     events(option: Option): [Event!]!
-    popularEvents(limit: Int = 5): [Event!]
+    popularEvents(limit: Int = 4): [Event!]
     bookings(option: Option): [Booking!]!
   }
 

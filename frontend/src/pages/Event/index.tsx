@@ -6,6 +6,7 @@ import { Box } from 'tt-react-ui-2'
 // Components:
 import { HeadBar } from 'components/HeadBar'
 import { HeadSlider } from 'components/HeadSlider'
+import { PreviewSection } from 'components/PreviewSection'
 
 // Styles:
 //import "./style.css";
@@ -41,13 +42,13 @@ const Event: React.FunctionComponent<any> = () => {
   return (
     <Query query={previewQuery} variables={{ option: setEventOption(null, null, 5) }}>
       {({ data : {popularEvents}, loading, error, client }) => {
-        if(loading) return "Loading..."
         if(error) return "Error :("
 
         return (
           <Box className="Event page" display="block">
             <HeadBar onSlide={handleSlide} />
-            <HeadSlider ref={slider} eventPreviews={popularEvents}/>
+            <HeadSlider ref={slider} eventPreviews={popularEvents} loading={loading}/>
+            <PreviewSection className="PopularSection" eventPreviews={popularEvents} loading={loading} section="Popular"></PreviewSection>
           </Box>
         )
       }}
