@@ -1,6 +1,7 @@
 import * as React from 'react'
 import cx from 'classnames'
-import { Box, Container, Row, Col, Headline } from 'tt-react-ui-2'
+import { format } from 'date-fns'
+import { Box, Container, Row, Col, Headline, Text } from 'tt-react-ui-2'
 
 // Type:
 import { EventPreview } from 'types/gql-type'
@@ -37,7 +38,7 @@ export const PreviewSection: React.FunctionComponent<PreviewSectionProps> = ({
 
   return (
     <Box className={cx(className && className, 'Preview')} display="block" pt="4" px="6">
-      <Headline className="Preview--title" font="bold" text="sm" mb="4" pl="4">
+      <Headline className="Preview__title" font="bold" text="sm" pl="4">
         {section}
       </Headline>
       {loading ? (
@@ -46,10 +47,24 @@ export const PreviewSection: React.FunctionComponent<PreviewSectionProps> = ({
         <Container fluid>
           <Row>
             {eventPreviews.map((event, index) => {
+              const { _id, date, dateEnd, location, title } = event
+
               return (
-                <Col width="12, md:6, lg:3" key={event._id} mt="4">
-                  <Box className="Preview--item" image={bgImg[index % 4]} h="full">
-                    {event.title}
+                <Col width="12, md:6, lg:3" key={_id} mt="4">
+                  <Box className="Preview__wrap" image={bgImg[index % 4]}>
+                    <Box
+                      className={cx('Preview__item')}
+                      h="full"
+                      flex="col"
+                      items="center"
+                      justify="center"
+                    >
+                      <Headline font="bold" capitalize>{title}</Headline>
+                      <Text paragraph mt="2" size="sm">
+                        {format(date, 'MMM D')}
+                        {dateEnd && format(dateEnd, ' - D')}
+                      </Text>
+                    </Box>
                   </Box>
                 </Col>
               )

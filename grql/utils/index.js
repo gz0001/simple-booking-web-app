@@ -12,6 +12,7 @@ const queryHelper = require("grql/utils/queryHelper");
 const getUser = async userId => {
   try {
     const user = await User.findById(userId);
+    if (!user) return null;
     return {
       ...user.obj,
       createdEvents: ({ option }) => getEvents(user._doc.createdEvents, option),

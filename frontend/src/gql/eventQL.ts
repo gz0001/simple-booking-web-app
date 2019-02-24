@@ -42,7 +42,7 @@ export const setEventOption = (filter, sort, limit = 0, skip = 0) => {
     },
     limit,
     skip,
-    sort: sort ? sort : { date: -1 }
+    sort: sort ? sort : { date: 1 }
   }
   return option
 }

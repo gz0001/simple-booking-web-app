@@ -7,7 +7,7 @@ import { Box } from 'tt-react-ui-2'
 import { HeadBar } from 'components/HeadBar'
 import { HeadSlider } from 'components/HeadSlider'
 import { PreviewSection } from 'components/PreviewSection'
-import { Footer } from 'components/Footer';
+import { Footer } from 'components/Footer'
 
 // Styles:
 //import "./style.css";
@@ -29,9 +29,9 @@ const Event: React.FunctionComponent<any> = () => {
   }
 
   return (
-    <Query query={previewQuery}>
+    <Query query={previewQuery} variables={{option: setEventOption(null, null)}}>
       {({ data, loading, error, client }) => {
-        const { popularEvents } = data
+        const { popularEvents, events } = data
 
         if (error) return 'Error :('
 
@@ -45,7 +45,13 @@ const Event: React.FunctionComponent<any> = () => {
               loading={loading}
               section="Popular"
             />
-            <Footer/>
+            <PreviewSection
+              className="EventSection"
+              eventPreviews={events}
+              loading={loading}
+              section="Recently Added"
+            />
+            <Footer />
           </Box>
         )
       }}

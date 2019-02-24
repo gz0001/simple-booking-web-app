@@ -34,10 +34,11 @@ app.use(
     rootValue: rootResolvers,
     graphiql: true,
     formatError: error => {
-      console.log("app err: ", error);
+      const { code } = error.originalError || {};
+      console.log("got err code:", error.originalError);
       return {
         ...error,
-        code: -1
+        code
       };
     }
   })

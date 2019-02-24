@@ -65,6 +65,7 @@ export const HeadSlider: React.FunctionComponent<HeadSliderProps> = React.forwar
                     h="full"
                     px="10"
                     pb="4"
+                    items="start"
                     justify="end"
                     flex="col"
                     position="absolute"
@@ -78,6 +79,7 @@ export const HeadSlider: React.FunctionComponent<HeadSliderProps> = React.forwar
                       cursor="hover:pointer"
                       font="bold"
                       text="2xl"
+                      uppercase
                     >
                       {event.title}
                     </Headline>
@@ -85,7 +87,7 @@ export const HeadSlider: React.FunctionComponent<HeadSliderProps> = React.forwar
                       {event.description}
                     </Text>
                     <Link  className="HeadSlider__link" href={`/event/${event._id}`}  size="xs">
-                      Read more <Icon color="first" name="arrow-right" size="xs" transition={false}/>
+                      Read more...
                     </Link>
                   </Box>
                 </Box>

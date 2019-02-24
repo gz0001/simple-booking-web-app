@@ -25,7 +25,7 @@ module.exports = {
     }
   },
   popularEvents: async ({ limit }, req) => {
-    if (!req.isAuth) throw new ServerError("Unauthenticated", 401);
+    //if (!req.isAuth) throw new ServerError("Unauthenticated", 401);
     const { userId } = req;
 
     try {
