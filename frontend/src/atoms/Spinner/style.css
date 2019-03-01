@@ -1,6 +1,7 @@
 .Spinner {
   transform: translate(-50%, -50%);
   border-top-color: transparent;
+  border-left-color: transparent;
   border-bottom-color: transparent;
   animation: spinAround .5s infinite linear;
 }

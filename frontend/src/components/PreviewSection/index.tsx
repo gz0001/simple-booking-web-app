@@ -6,8 +6,6 @@ import { Box, Container, Row, Col, Headline, Text } from 'tt-react-ui-2'
 // Type:
 import { EventPreview } from 'types/gql-type'
 
-// Components:
-import { Spinner } from 'atoms/Spinner'
 
 // Styles:
 import './style.css'
@@ -23,14 +21,12 @@ import sl4 from 'assets/images/sl4.jpg'
 export interface PreviewSectionProps {
   className?: string
   eventPreviews: EventPreview[]
-  loading: boolean
   section: string
 }
 
 export const PreviewSection: React.FunctionComponent<PreviewSectionProps> = ({
   className,
   eventPreviews,
-  loading,
   section
 }) => {
   // bg images:
@@ -41,9 +37,6 @@ export const PreviewSection: React.FunctionComponent<PreviewSectionProps> = ({
       <Headline className="Preview__title" font="bold" text="sm" pl="4">
         {section}
       </Headline>
-      {loading ? (
-        <Spinner />
-      ) : (
         <Container fluid>
           <Row>
             {eventPreviews.map((event, index) => {
@@ -71,7 +64,7 @@ export const PreviewSection: React.FunctionComponent<PreviewSectionProps> = ({
             })}
           </Row>
         </Container>
-      )}
+      
     </Box>
   )
 }

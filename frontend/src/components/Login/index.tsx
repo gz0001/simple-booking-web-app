@@ -9,7 +9,6 @@ import { Box, Headline, Text, createState } from 'tt-react-ui-2'
 // Components:
 import { Textfield } from 'atoms/Textfield'
 import { Button } from 'atoms/Button'
-import { AnimatedBox } from 'atoms/AnimatedBox'
 
 // Styles:
 import './style.css'
@@ -41,7 +40,7 @@ const FadeContainer = posed.form({
   }
 })
 
-const FadeInBox = posed(AnimatedBox)({
+const FadeInBox = posed(Box)({
   preEnter: {
     opacity: 0,
     x: '-20%'

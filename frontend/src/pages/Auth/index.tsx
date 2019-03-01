@@ -6,7 +6,6 @@ import posed, { PoseGroup } from 'react-pose'
 import { tween } from 'popmotion'
 
 // Components:
-import { AnimatedBox } from 'atoms/AnimatedBox'
 import { Hr } from 'atoms/Hr'
 import { Login } from 'components/Login'
 import { Register } from 'components/Register'
@@ -18,7 +17,7 @@ import './style.css'
 import logo from 'assets/images/logo.png'
 
 // const
-const FadeBox = posed(AnimatedBox)({
+const FadeBox = posed(Box)({
   preEnter: {
     opacity: 0,
     y: '20%'

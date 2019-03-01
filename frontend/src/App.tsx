@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import gql from 'graphql-tag'
 import { Box } from 'tt-react-ui-2'
-import posed, { PoseGroup } from 'react-pose'
-import { tween } from 'popmotion'
+
 
 // Components:
 import { Loading } from 'atoms/Loading'
@@ -14,7 +13,6 @@ import { Auth } from 'pages/Auth'
 import Booking from './pages/Booking'
 import Event from './pages/Event'
 import StyleGuide from 'pages/StyleGuide'
-import { AnimatedBox } from 'atoms/AnimatedBox'
 
 // GQL:
 import { setAuthMutation } from 'resolvers/authResolver'
@@ -57,7 +55,7 @@ export default class App extends Component<any, any> {
           variables: { userId, token, isAuth: true }
         })
       } catch (error) {
-        console.log('token expired!')
+        console.log('token expired!', error)
       }
     }
     setTimeout(() => {
@@ -74,7 +72,6 @@ export default class App extends Component<any, any> {
     } = this.props
 
     const { loading } = this.state
-    console.log('got auth: ', this.props)
 
     return (
       <Box className="App" min-h="screen" overflow="y-auto">

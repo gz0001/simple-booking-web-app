@@ -8,9 +8,10 @@ import { HeadBar } from 'components/HeadBar'
 import { HeadSlider } from 'components/HeadSlider'
 import { PreviewSection } from 'components/PreviewSection'
 import { Footer } from 'components/Footer'
+import { Spinner } from 'atoms/Spinner'
 
 // Styles:
-//import "./style.css";
+import "./style.css";
 
 // Query:
 import { previewQuery, setEventOption } from 'gql/eventQL'
@@ -29,28 +30,37 @@ const Event: React.FunctionComponent<any> = () => {
   }
 
   return (
-    <Query query={previewQuery} variables={{option: setEventOption(null, null)}}>
+    <Query query={previewQuery} variables={{ option: setEventOption(null, null) }}>
       {({ data, loading, error, client }) => {
+        console.log('data at event: ', data)
+
         const { popularEvents, events } = data
 
         if (error) return 'Error :('
 
         return (
-          <Box className="Event page" display="block">
+          <Box className="Event page" flex="col" min-h="screen">
             <HeadBar onSlide={handleSlide} />
             <HeadSlider ref={slider} eventPreviews={popularEvents} loading={loading} />
-            <PreviewSection
-              className="PopularSection"
-              eventPreviews={popularEvents}
-              loading={loading}
-              section="Popular"
-            />
-            <PreviewSection
-              className="EventSection"
-              eventPreviews={events}
-              loading={loading}
-              section="Recently Added"
-            />
+            <Box className="Event-preview" display="block">
+               {loading ? (
+              <Spinner />
+            ) : (
+              <>
+                <PreviewSection
+                  className="PopularSection"
+                  eventPreviews={popularEvents}
+                  section="Popular"
+                />
+                <PreviewSection
+                  className="EventSection"
+                  eventPreviews={events}
+                  section="Recently Added"
+                />
+              </>
+            )}
+            </Box>
+           
             <Footer />
           </Box>
         )

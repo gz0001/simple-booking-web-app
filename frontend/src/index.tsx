@@ -50,7 +50,7 @@ const client = new ApolloClient({
     }
   }
 })
-//client.initQueryManager()
+client.initQueryManager()
 
 ReactDOM.render(
   <ApolloProvider client={client}>

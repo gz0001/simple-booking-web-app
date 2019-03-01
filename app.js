@@ -20,6 +20,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 app.use(isAuth);
+app.set("trust proxy", true);
 
 app.get("/", (req, res, next) => {
   res.send(

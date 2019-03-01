@@ -1,10 +1,7 @@
 const jwt = require("jsonwebtoken");
 
-// Utils:
-const ServerError = require("utils/error");
-
 module.exports = async (req, res, next) => {
-  console.log("Got a request");
+  console.log("Got a request from: ", req.ip);
   // get auth header and verify
   const authHeader = req.get("Authorization");
 
